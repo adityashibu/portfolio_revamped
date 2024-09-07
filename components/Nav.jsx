@@ -23,7 +23,7 @@ const Links = [
         name: "contact",
         path: '/contact'
     }
-]
+];
 
 const Nav = () => {
     const pathname = usePathname();
