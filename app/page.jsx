@@ -36,7 +36,7 @@ const Home = () => {
 
           {/* Text */}
           <div className="text-center xl:text-left">
-            <span ref={typedElementRef} className="text-[15px] md:text-[24px]"></span>
+            <span ref={typedElementRef} className="text-[18px] md:text-[24px]"></span>
             <h1 className="h1 mb-6">
               Hello, I'm <br />
               <span className="text-accent">Aditya S</span>
