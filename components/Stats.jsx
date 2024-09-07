@@ -10,8 +10,6 @@ const Stats = () => {
     const token = process.env.NEXT_PUBLIC_GITHUB_TOKEN;
 
     useEffect(() => {
-        console.log('GitHub Token:', token); // Check if token is being logged
-
         const fetchCommitCount = async () => {
             try {
                 const username = 'adityashibu';
