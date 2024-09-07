@@ -148,7 +148,7 @@ const Stats = () => {
                                     end={stat.num}
                                     duration={5}
                                     delay={1}
-                                    className="text-5xl xl:text-7xl font-extrabold"
+                                    className="text-5xl xl:text-7xl font-extrabold text-accent/80"
                                 />
                             </div>
                             <div className="flex justify-start items-center">
