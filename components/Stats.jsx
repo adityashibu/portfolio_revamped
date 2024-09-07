@@ -137,7 +137,7 @@ const Stats = () => {
                     <h1 className="text-4xl font-bold text-accent text-center">Stats</h1>
                 </div>
                 {/* Stats Section */}
-                <div className="flex flex-col xl:flex-row flex-wrap gap-6 max-w-[80vw] mx-auto xl:max-w-none">
+                <div className="flex flex-col xl:flex-row flex-wrap gap-6 max-w-[80vw] mx-auto md:max-w-none">
                     {stats.map((stat, index) => (
                         <div
                             key={index}
