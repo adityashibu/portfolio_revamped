@@ -1,11 +1,33 @@
+"use client";
+
 /* eslint-disable react/no-unescaped-entities */
+import { useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { FiDownload } from "react-icons/fi";
+import Typed from "typed.js";
 
 // components
 import Social from "@/components/Social";
 
 const Home = () => {
+  const typedElementRef = useRef(null);
+
+  useEffect(() => {
+    const options = {
+      strings: ['Student Developer', 'Python Developer', 'Frontend Developer', 'AI/ML Enthusiast'],
+      typeSpeed: 100,
+      backSpeed: 50,
+      backDelay: 300,
+      loop: true,
+    };
+
+    const typed = new Typed(typedElementRef.current, options);
+
+    return () => {
+      typed.destroy();
+    };
+  }, []);
+
   return (
     <section className="h-full">
       <div className="container mx-auto h-full">
@@ -14,7 +36,7 @@ const Home = () => {
 
           {/* Text */}
           <div className="text-center xl:text-left">
-            <span className="text-xl">Student Developer</span>
+            <span ref={typedElementRef}></span>
             <h1 className="h1 mb-6">
               Hello, I'm <br />
               <span className="text-accent">Aditya S</span>
@@ -37,7 +59,7 @@ const Home = () => {
 
           {/* Photo */}
           <div>
-            <Photo />
+            {/* <Photo /> */}
           </div>
         </div>
       </div>
