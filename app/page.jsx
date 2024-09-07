@@ -8,6 +8,7 @@ import Typed from "typed.js";
 
 // components
 import Social from "@/components/Social";
+import Photo from "@/components/Photo";
 
 const Home = () => {
   const typedElementRef = useRef(null);
@@ -35,7 +36,7 @@ const Home = () => {
 
 
           {/* Text */}
-          <div className="text-center xl:text-left">
+          <div className="text-center xl:text-left order-2 xl:order-none">
             <span ref={typedElementRef} className="text-[18px] md:text-[24px]"></span>
             <h1 className="h1 mb-6">
               Hello, I'm <br />
@@ -58,8 +59,8 @@ const Home = () => {
           </div>
 
           {/* Photo */}
-          <div>
-            {/* <Photo /> */}
+          <div className="order-1 xl:order-none mb-12 xl:mb-0 mt-12 xl:mt-0">
+            <Photo />
           </div>
         </div>
       </div>
