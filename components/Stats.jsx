@@ -7,13 +7,14 @@ const Stats = () => {
     const [commitCount, setCommitCount] = useState(0);
     const [repoCount, setRepoCount] = useState(0);
     const [prCount, setPrCount] = useState({ created: 0, merged: 0 });
-    const token = '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';
+    const token = process.env.NEXT_PUBLIC_GITHUB_TOKEN;
 
     useEffect(() => {
+        console.log('GitHub Token:', token); // Check if token is being logged
+
         const fetchCommitCount = async () => {
             try {
                 const username = 'adityashibu';
-
                 const today = new Date();
                 const oneYearAgo = new Date();
                 oneYearAgo.setFullYear(today.getFullYear() - 1);
@@ -109,7 +110,7 @@ const Stats = () => {
         fetchRepoCount();
         fetchCommitCount();
         fetchPrCount();
-    }, []);
+    }, [token]);
 
     const stats = [
         {
