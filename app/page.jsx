@@ -36,12 +36,12 @@ const Home = () => {
 
           {/* Text */}
           <div className="text-center xl:text-left">
-            <span ref={typedElementRef}></span>
+            <span ref={typedElementRef} className="text-[15px] md:text-[24px]"></span>
             <h1 className="h1 mb-6">
               Hello, I'm <br />
               <span className="text-accent">Aditya S</span>
             </h1>
-            <p className="max-w-[500px] mb-9 text-white/80 ">
+            <p className="max-w-[500px] mb-9 text-white/80 text-sm md:text:mg lg:text-lg">
               I'm a third year Computer Science student with a passion for the fields of AI and ML. Currently delving into Frontend Development
             </p>
 
