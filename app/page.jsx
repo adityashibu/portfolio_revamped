@@ -9,7 +9,6 @@ import Typed from "typed.js";
 // components
 import Social from "@/components/Social";
 import Photo from "@/components/Photo";
-import Stats from "@/components/Stats";
 
 const Home = () => {
   const typedElementRef = useRef(null);
@@ -65,7 +64,6 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <Stats />
     </section>
   )
 }
