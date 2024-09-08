@@ -17,9 +17,8 @@ import {
   SiNetlify,
   SiMongodb,
   SiMysql,
+  SiExpress,
 } from "react-icons/si";
-import { FaGraduationCap } from "react-icons/fa6";
-import { IoMdCodeWorking } from "react-icons/io";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
@@ -48,7 +47,7 @@ const experienceYears = calculateExperience(startDate);
 const about = {
   title: "About Me",
   description:
-    "I am a third-year Computer Science student at Heriot-Watt University, Dubai Campus, with a specialization in Artificial Intelligence. My academic journey has fostered a deep interest in web development, and I have gained hands-on experience in building projects using React, Next.js, and Tailwind CSS. In addition to web technologies, I am proficient in Python, Java, and C, and have applied these languages across several software development projects. Additionally, I am well-versed in deploying web applications on platforms such as Vercel and Netlify, where I have successfully deployed numerous projects. As I advance in my degree, I am eager to explore the fields of Artificial Intelligence and Machine Learning in greater depth, with the goal of contributing to innovative solutions in these areas in the future.",
+    "I am a third-year Computer Science student at Heriot-Watt University, Dubai Campus, with a specialization in Artificial Intelligence. My academic journey has fostered a deep interest in the fields of web development, AL and ML.",
   info: [
     {
       fieldName: "Name",
@@ -60,7 +59,7 @@ const about = {
     },
     {
       fieldName: "Experience",
-      fieldValue: `${experienceYears} years`,
+      fieldValue: `${experienceYears}+ years`,
     },
     {
       fieldName: "Email",
@@ -68,14 +67,13 @@ const about = {
     },
     {
       fieldName: "Languages",
-      fieldValue: "English, Hindi, Malayalam, Tamil",
+      fieldValue: "English, Hindi, Malayalam",
     },
   ],
 };
 
 // experience data
 const experience = {
-  icon: <IoMdCodeWorking />,
   title: "My Work Experience",
   description:
     "The below are my relevant work experiences in the field of web development and automation.",
@@ -109,71 +107,83 @@ const skills = {
   description: "Explore the technologies and tools I am proficient in.",
   skillList: [
     {
-      title: "Frontend Development",
-      skills: [
-        { name: "HTML", icon: <FaHtml5 /> },
-        { name: "CSS", icon: <FaCss3Alt /> },
-        { name: "JavaScript", icon: <FaJs /> },
-        { name: "React", icon: <FaReact /> },
-        { name: "Next.js", icon: <SiNextdotjs /> },
-        { name: "Tailwind CSS", icon: <SiTailwindcss /> },
-      ],
+      icon: <FaHtml5 />,
+      name: "HTML 5",
     },
     {
-      title: "Backend Development",
-      skills: [
-        { name: "Node.js", icon: <FaNodeJs /> },
-        { name: "Express.js", icon: <FaNodeJs /> },
-      ],
+      icon: <FaCss3Alt />,
+      name: "CSS 3",
     },
     {
-      title: "Database Management",
-      skills: [
-        { name: "MongoDB", icon: <SiMongodb /> },
-        { name: "MySQL", icon: <SiMysql /> },
-      ],
+      icon: <FaJs />,
+      name: "Javascript",
     },
     {
-      title: "Programming Languages",
-      skills: [
-        { name: "Python", icon: <FaPython /> },
-        { name: "Java", icon: <FaJava /> },
-      ],
+      icon: <FaReact />,
+      name: "React",
     },
     {
-      title: "Version Control",
-      skills: [{ name: "Git", icon: <FaGitAlt /> }],
+      icon: <SiNextdotjs />,
+      name: "Next.js",
     },
     {
-      title: "Deployment Platforms",
-      skills: [
-        { name: "Vercel", icon: <SiVercel /> },
-        { name: "Netlify", icon: <SiNetlify /> },
-      ],
+      icon: <SiTailwindcss />,
+      name: "Tailwind CSS",
+    },
+    {
+      icon: <FaNodeJs />,
+      name: "Node.js",
+    },
+    {
+      icon: <SiExpress />,
+      name: "Express.js",
+    },
+    {
+      icon: <SiMongodb />,
+      name: "MongoDB",
+    },
+    {
+      icon: <FaPython />,
+      name: "Python",
+    },
+    {
+      icon: <FaJava />,
+      name: "Java",
+    },
+    {
+      icon: <FaGitAlt />,
+      name: "Git",
+    },
+    {
+      icon: <SiVercel />,
+      name: "Vercel",
+    },
+    {
+      icon: <SiNetlify />,
+      name: "Netlify",
     },
   ],
 };
 
 // education data
 const education = {
-  icon: <FaGraduationCap />,
   title: "My Education",
   description:
     "Learn more about my academic journey and the courses I have completed.",
   items: [
     {
       institution: "Heriot Watt University",
-      degree: "BSc (Hons) Computer Science",
+      degree: "BSc (Hons) CS",
       duration: "September 2023 - Present",
     },
     {
       institution: "freeCodeCamp & Microsoft",
-      degree: "Foundational C# with Microsoft",
+      degree: "Foundational C#",
       duration: "June 2024 - July 2024",
     },
     {
       institution: "Harvard University",
-      degree: "CS50P: Introduction to Programming using Python",
+      degree: "CS50P: Intro to Python",
       duration: "May 2023 - July 2023",
     },
     {
@@ -209,13 +219,62 @@ const Resume = () => {
           {/* Content */}
           <div className="min-h-[70vh] w-full">
             {/* About */}
-            <TabsContent value="about" className="w-full">
-              about
+            <TabsContent
+              value="about"
+              className="w-full text-center xl:text-left"
+            >
+              <div className="flex flex-col gap-[30px]">
+                <h3 className="text-4xl font-bold">{about.title}</h3>
+                <p className="max-w-[600px] text-white/60 mx-auto xl:mx-0">
+                  {about.description}
+                </p>
+                <ul className="grid grid-cols-1 xl:grid-cols-2 gap-y-6 max-w-[620px] mx-auto xl:mx-0">
+                  {about.info.map((info, index) => {
+                    return (
+                      <li
+                        key={index}
+                        className="flex items-center justify-center xl:justify-start gap-4"
+                      >
+                        <span className="text-accent">{info.fieldName}</span>
+                        <span className="text-xl">{info.fieldValue}</span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
             </TabsContent>
 
             {/* Education */}
             <TabsContent value="education" className="w-full">
-              education
+              <div className="flex flex-col gap-[30px] text-center xl:text-left">
+                <h3 className="text-4xl font-bold">{education.title}</h3>
+                <p className="max-w-[600px] text-white/60 mx-auto xl:mx-0">
+                  {education.description}
+                </p>
+                <ScrollArea className="h-[400px]">
+                  <ul className="grid gird-cols-1 lg:grid-cols-2 gap-[30px]">
+                    {education.items.map((education, index) => {
+                      return (
+                        <li
+                          key={index}
+                          className="bg-[#232329] h-[184px] py-6 px-10 rounded-xl flex flex-col justify-center items-center lg:items-start gap-1"
+                        >
+                          <span className="text-accent">
+                            {education.duration}
+                          </span>
+                          <h3 className="text-2xl max-w-[260px] min-h-[60px] text-center lg:text-left">
+                            {education.institution}
+                          </h3>
+                          <div className="flex items-center gap-3">
+                            <span className="w-[6px] h-[6px] rounded-full bg-accent"></span>
+                            <p className="text-white/60">{education.degree}</p>
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </ScrollArea>
+              </div>
             </TabsContent>
 
             {/* Experience */}
@@ -254,8 +313,35 @@ const Resume = () => {
             </TabsContent>
 
             {/* Skills */}
-            <TabsContent value="skills" className="w-full">
-              skills
+            <TabsContent value="skills" className="w-full h-full">
+              <div className="flex flex-col gap-[30px] text-center xl:text-left">
+                <div>
+                  <h3 className="text-4xl font-bold">{skills.title}</h3>
+                  <p className="max-w-[600px] text-white/60 mx-auto xl:mx-0">
+                    {skills.description}
+                  </p>
+                </div>
+                <ul className="grid grid-cols-2 sm:grid-cols-4 xl:gap-[30px] gap-4">
+                  {skills.skillList.map((skill, index) => {
+                    return (
+                      <li key={index}>
+                        <TooltipProvider delayDuration={100}>
+                          <Tooltip>
+                            <TooltipTrigger className="w-full h-[150px] bg-[#232329] rounded-xl flex justify-center items-center group">
+                              <div className="text-7xl group-hover:text-accent transition-all duration-300">
+                                {skill.icon}
+                              </div>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              <p className="capitalize">{skill.name}</p>
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
             </TabsContent>
           </div>
         </Tabs>
