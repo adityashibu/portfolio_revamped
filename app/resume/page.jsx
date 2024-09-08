@@ -67,7 +67,7 @@ const about = {
     },
     {
       fieldName: "Languages",
-      fieldValue: "English, Hindi, Malayalam",
+      fieldValue: "English",
     },
   ],
 };
@@ -233,7 +233,7 @@ const Resume = () => {
                     return (
                       <li
                         key={index}
-                        className="flex items-center justify-center xl:justify-start gap-4"
+                        className="flex items-center justify-between xl:justify-start gap-x-12 sm:gap-4"
                       >
                         <span className="text-accent">{info.fieldName}</span>
                         <span className="text-xl">{info.fieldValue}</span>
