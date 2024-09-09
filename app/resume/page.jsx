@@ -16,7 +16,6 @@ import {
   SiVercel,
   SiNetlify,
   SiMongodb,
-  SiMysql,
   SiExpress,
 } from "react-icons/si";
 
