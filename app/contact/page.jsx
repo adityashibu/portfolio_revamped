@@ -1,5 +1,9 @@
-"use client";
-
 const Contact = () => {
-  return <div>contact page</div>;
+  return (
+    <div>
+      <h1>Contact Page</h1>
+    </div>
+  );
 };
+
+export default Contact;
