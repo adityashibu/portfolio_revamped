@@ -9,8 +9,12 @@
 # testing
 /coverage
 
-# Env
+# env
 .env
+
+# ignore heapprofiler files
+*.heapprofile
+Heap.*
 
 # next.js
 /.next/
