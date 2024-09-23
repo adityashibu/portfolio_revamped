@@ -42,7 +42,12 @@ const Contact = () => {
               <h3 className="text-4xl text-accent">Let&#39;s get in touch</h3>
               <p className="text-white/60 ">
                 Fill in the below form or contact me directly using any of the
-                provided information, I would love to get in touch
+                provided information, I would love to get in touch <br />
+                <span className="text-red-600 font-bold">
+                  (Please note that the forms are still under development, hence
+                  I would recommend contacting me directly using the provided
+                  information).
+                </span>
               </p>
               {/* Inputs */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
