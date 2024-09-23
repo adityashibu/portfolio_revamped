@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
         <meta name="description" content={metadata.description} />
 
         {/* Favicon */}
-        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/favicon.ico?v=2" sizes="any" />
 
         {/* Open Graph Meta Tags */}
         <meta property="og:title" content="Aditya S - Personal Portfolio" />

@@ -17,6 +17,9 @@ import {
   SiNetlify,
   SiMongodb,
   SiExpress,
+  SiTensorflow,
+  SiKeras,
+  SiNumpy,
 } from "react-icons/si";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -106,6 +109,22 @@ const skills = {
   description: "Explore the technologies and tools I am proficient in.",
   skillList: [
     {
+      icon: <SiKeras />,
+      name: "Keras",
+    },
+    {
+      icon: <SiTensorflow />,
+      name: "Tensorflow",
+    },
+    {
+      icon: <SiNumpy />,
+      name: "Numpy",
+    },
+    {
+      icon: <FaPython />,
+      name: "Python",
+    },
+    {
       icon: <FaHtml5 />,
       name: "HTML 5",
     },
@@ -140,10 +159,6 @@ const skills = {
     {
       icon: <SiMongodb />,
       name: "MongoDB",
-    },
-    {
-      icon: <FaPython />,
-      name: "Python",
     },
     {
       icon: <FaJava />,
