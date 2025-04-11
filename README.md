@@ -37,4 +37,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ## Website Stats
 
-[[![Stats for Portfolio](/.github/images/stats.svg "Stats for 3D Portfolio")](https://pagespeed.web.dev/analysis?url=https://shubam.netlify.app/ "Stats for Portfolio")](https://pagespeed.web.dev/analysis/https-adityashibu-vercel-app/epf4eh2w69?form_factor=desktop)
+[![Stats for Portfolio](/.github/images/stats.svg "Stats for 3D Portfolio")](https://pagespeed.web.dev/analysis/https-adityashibu-vercel-app/epf4eh2w69?form_factor=desktop "Stats for Portfolio")
