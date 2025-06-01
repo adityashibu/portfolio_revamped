@@ -81,14 +81,19 @@ const experience = {
     "The below are my relevant work experiences in the field of web development and automation.",
   items: [
     {
-      company: "ULink Technologies",
-      position: "Founder and Developer",
-      duration: "June 2023 - Present",
+      company: "Atlas Racing FS",
+      position: "Autonomous Systems Developer",
+      duration: "May 2025 - Present",
     },
     {
-      company: "Clarus24",
-      position: "Frontend Developer Intern",
-      duration: "July 2024 - September 2024",
+      company: "Creed&Bear",
+      position: "Quantum Computing Intern",
+      duration: "January 2025 - Present",
+    },
+    {
+      company: "Clarus24 IT Solutions",
+      position: "Frontend Developer",
+      duration: "August 2024 - October 2024",
     },
     {
       company: "Fincasa Capital",
@@ -96,9 +101,9 @@ const experience = {
       duration: "May 2024 - July 2024",
     },
     {
-      company: "JP Morgan Chase",
-      position: "SE Intern",
-      duration: "June 2024 - June 2024",
+      company: "Lets Go Tourism LLC",
+      position: "IT Engineer",
+      duration: "September 2023 - April 2024",
     },
   ],
 };
@@ -108,10 +113,6 @@ const skills = {
   title: "My Skills",
   description: "Explore the technologies and tools I am proficient in.",
   skillList: [
-    {
-      icon: <SiKeras />,
-      name: "Keras",
-    },
     {
       icon: <SiTensorflow />,
       name: "Tensorflow",
@@ -123,14 +124,6 @@ const skills = {
     {
       icon: <FaPython />,
       name: "Python",
-    },
-    {
-      icon: <FaHtml5 />,
-      name: "HTML 5",
-    },
-    {
-      icon: <FaCss3Alt />,
-      name: "CSS 3",
     },
     {
       icon: <FaJs />,
@@ -157,10 +150,6 @@ const skills = {
       name: "Express.js",
     },
     {
-      icon: <SiMongodb />,
-      name: "MongoDB",
-    },
-    {
       icon: <FaJava />,
       name: "Java",
     },
@@ -171,10 +160,6 @@ const skills = {
     {
       icon: <SiVercel />,
       name: "Vercel",
-    },
-    {
-      icon: <SiNetlify />,
-      name: "Netlify",
     },
   ],
 };
@@ -187,18 +172,8 @@ const education = {
   items: [
     {
       institution: "Heriot Watt University",
-      degree: "BSc (Hons) CS",
+      degree: "BSc (Hons) CS with AI",
       duration: "September 2023 - Present",
-    },
-    {
-      institution: "freeCodeCamp & Microsoft",
-      degree: "Foundational C#",
-      duration: "June 2024 - July 2024",
-    },
-    {
-      institution: "Harvard University",
-      degree: "CS50P: Intro to Python",
-      duration: "May 2023 - July 2023",
     },
     {
       institution: "Indian High School, Dubai",
@@ -265,7 +240,7 @@ const Resume = () => {
                 <p className="max-w-[600px] text-white/60 mx-auto xl:mx-0">
                   {education.description}
                 </p>
-                <ScrollArea className="h-[400px]">
+                <ScrollArea className="h-[400px] overflow-y-scroll scrollbar-visible">
                   <ul className="grid gird-cols-1 lg:grid-cols-2 gap-[30px]">
                     {education.items.map((education, index) => {
                       return (
@@ -298,7 +273,7 @@ const Resume = () => {
                 <p className="max-w-[600px] text-white/60 mx-auto xl:mx-0">
                   {experience.description}
                 </p>
-                <ScrollArea className="h-[400px]">
+                <ScrollArea className="h-[650px] overflow-y-scroll scrollbar-visible">
                   <ul className="grid gird-cols-1 lg:grid-cols-2 gap-[30px]">
                     {experience.items.map((experience, index) => {
                       return (
@@ -335,9 +310,10 @@ const Resume = () => {
                     {skills.description}
                   </p>
                 </div>
-                <ul className="grid grid-cols-2 sm:grid-cols-4 xl:gap-[30px] gap-4">
-                  {skills.skillList.map((skill, index) => {
-                    return (
+
+                <ScrollArea className="h-[550px] overflow-y-scroll scrollbar-visible">
+                  <ul className="grid grid-cols-2 sm:grid-cols-4 xl:gap-[30px] gap-4 pr-4">
+                    {skills.skillList.map((skill, index) => (
                       <li key={index}>
                         <TooltipProvider delayDuration={100}>
                           <Tooltip>
@@ -352,9 +328,9 @@ const Resume = () => {
                           </Tooltip>
                         </TooltipProvider>
                       </li>
-                    );
-                  })}
-                </ul>
+                    ))}
+                  </ul>
+                </ScrollArea>
               </div>
             </TabsContent>
           </div>
