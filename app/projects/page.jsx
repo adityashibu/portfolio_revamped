@@ -16,16 +16,6 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 
-import { FaReact, FaNodeJs } from "react-icons/fa";
-import { FiFramer } from "react-icons/fi";
-import {
-  SiNextdotjs,
-  SiVite,
-  SiTailwindcss,
-  SiMongodb,
-  SiExpress,
-} from "react-icons/si";
-import { TbBrandThreejs } from "react-icons/tb";
 import { BsArrowUpRight, BsGithub } from "react-icons/bs";
 import WorkSliderBtns from "@/components/WorkSliderBtns";
 
@@ -44,6 +34,40 @@ const projects = [
     image: "/assets/projects/FS-AI-Carla.jpeg",
     live: "https://github.com/FS-AI-HWUD",
     github: "https://github.com/FS-AI-HWUD/Formula-Student-AI",
+  },
+  {
+    category: "Fullstack",
+    title: "PowerHouse Smart Home App",
+    description:
+      "Developed a fully-fledged all-in-one smart home application with simulations of smart home devices",
+    tech: [
+      { name: "React" },
+      { name: "NextJS" },
+      { name: "MUI" },
+      { name: "TailwindCSS" },
+      { name: "Python" },
+      { name: "FastAPI" },
+    ],
+    image: "/assets/projects/powerhouse.jpeg",
+    live: "https://github.com/PowerHouse-Project",
+    github: "https://github.com/PowerHouse-Project/Production",
+  },
+  {
+    category: "LLMs",
+    title: "VaultApp",
+    description:
+      "Developed a fully local RAG with Ollama and LangChain, allowing users to query their own documents using LLMs without any internet connection",
+    note: "Please note the Live site is only for UI demo, visit the GitHub repo and follow the instructions to run it locally",
+    tech: [
+      { name: "Ollama" },
+      { name: "Langchain" },
+      { name: "ChromaDB" },
+      { name: "Streamlit" },
+      { name: "Python" },
+    ],
+    image: "/assets/projects/localRAG.jpeg",
+    live: "https://vaultapp.streamlit.app/",
+    github: "https://github.com/jonathanjthomas/GDG-RAG-Demo",
   },
   {
     category: "Frontend",
@@ -119,17 +143,22 @@ const Projects = () => {
           <div className="w-full xl:w-[50%] xl:h-[460px] flex flex-col xl:justify-between order-2 xl:order-none">
             <div className="flex flex-col gap-[30px] h-[50%]">
               {/* Project Number */}
-              <div className="text-8xl leading-none font-extrabold text-transparent text-outline">
+              <div className="text-5xl leading-none font-extrabold text-transparent text-outline">
                 {String(activeIndex + 1).padStart(2, '0')}
               </div>
 
               {/* Project Category */}
-              <h2 className="text-[42px] font-bold leading-none text-white group-hover:text-accent transition-all duration-500 capitalize">
-                {project.category} Project
+              <h2 className="text-[40px] font-bold leading-none text-white group-hover:text-accent transition-all duration-500 capitalize">
+                {project.title}
+              </h2>
+
+              <h2 className="text-[20px] font-bold leading-none text-white group-hover:text-accent transition-all duration-500 capitalize mt-[-15px]">
+                {project.category}
               </h2>
 
               {/* Project Description */}
               <p className="text-white/60">{project.description}</p>
+              <strong className="text-red-500 mt-[-10px]">{project.note}</strong>
 
               {/* Tech Stack */}
               <ul className="flex gap-4 pt-2 flex-wrap">
