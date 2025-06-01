@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { FaGithub, FaInstagram, FaWhatsapp, FaLinkedin } from "react-icons/fa";
-import { SiMicrosoftoutlook } from "react-icons/si";
+import { PiMicrosoftOutlookLogoFill } from "react-icons/pi";
 
 const Socials = [
     {
@@ -20,7 +20,7 @@ const Socials = [
         link: "https://www.linkedin.com/in/adityashibu"
     },
     {
-        icon: <SiMicrosoftoutlook />,
+        icon: <PiMicrosoftOutlookLogoFill />,
         link: "mailto:as2397@hw.ac.uk"
     },
 ]
