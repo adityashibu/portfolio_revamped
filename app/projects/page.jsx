@@ -86,6 +86,21 @@ const projects = [
   },
   {
     category: "Frontend",
+    title: "Clarus24 Website",
+    description:
+      "Developed a fully functional ReactJS website for a company with custom components, animations and working forms",
+    tech: [
+      { name: "React" },
+      { name: "Vite" },
+      { name: "MUI" },
+      { name: "Vercel" },
+    ],
+    image: "/assets/projects/Clarus24.jpeg",
+    live: "https://clarus-24.vercel.app/",
+    github: "https://github.com/adityashibu/Clarus_24",
+  },
+  {
+    category: "Frontend",
     title: "Personal Portfolio",
     description:
       "The current website you're viewing, built using React, TailwindCSS, Framer and NextJS",
