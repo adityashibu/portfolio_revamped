@@ -32,7 +32,7 @@ const projects = [
       { name: "Good Ol' Physics" },
     ],
     image: "/assets/projects/FS-AI-Carla.jpeg",
-    live: "https://github.com/FS-AI-HWUD",
+    live: "",
     github: "https://github.com/FS-AI-HWUD/Formula-Student-AI",
   },
   {
@@ -49,7 +49,7 @@ const projects = [
       { name: "FastAPI" },
     ],
     image: "/assets/projects/powerhouse.jpeg",
-    live: "https://github.com/PowerHouse-Project",
+    live: "",
     github: "https://github.com/PowerHouse-Project/Production",
   },
   {
@@ -68,6 +68,21 @@ const projects = [
     image: "/assets/projects/localRAG.jpeg",
     live: "https://vaultapp.streamlit.app/",
     github: "https://github.com/jonathanjthomas/GDG-RAG-Demo",
+  },
+  {
+    category: "YOLO and CV",
+    title: "Space Debris Classification",
+    description:
+      "Developed a space debris classification model using YOLO, enhancing training data by combining datasets from Roboflow for broader coverage",
+    tech: [
+      { name: "YOLO" },
+      { name: "OpenCV" },
+      { name: "Python" },
+      { name: "Roboflow Datasets" },
+    ],
+    image: "/assets/projects/spaceDebrisRAW.jpg",
+    live: "",
+    github: "https://github.com/adityashibu/spaceDebrisDetection/",
   },
   {
     category: "Frontend",
@@ -178,19 +193,20 @@ const Projects = () => {
 
               {/* Action Buttons */}
               <div className="flex items-center gap-4">
-                {/* Live */}
-                <Link href={project.live}>
-                  <TooltipProvider delayDuration={100}>
-                    <Tooltip>
-                      <TooltipTrigger className="w-[70px] h-[70px] rounded-full bg-white/5 flex justify-center items-center group">
-                        <BsArrowUpRight className="text-white text-3xl group-hover:text-accent transform transition-transform duration-300 group-hover:rotate-45" />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Live Project</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                </Link>
+                {project.live && (
+                  <Link href={project.live}>
+                    <TooltipProvider delayDuration={100}>
+                      <Tooltip>
+                        <TooltipTrigger className="w-[70px] h-[70px] rounded-full bg-white/5 flex justify-center items-center group">
+                          <BsArrowUpRight className="text-white text-3xl group-hover:text-accent transform transition-transform duration-300 group-hover:rotate-45" />
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Live Project</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </Link>
+                )}
 
                 {/* GitHub */}
                 <Link href={project.github}>
