@@ -9,7 +9,6 @@ import { Analytics } from "@vercel/analytics/react";
 import Header from "@/components/Header";
 import PageTransition from "@/components/PageTransition";
 import StairTransition from "@/components/StairTransition";
-import Head from "next/head";
 
 const jetBrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -18,55 +17,46 @@ const jetBrainsMono = JetBrains_Mono({
 });
 
 export const metadata = {
-  title: "Aditya S",
-  description: "My personal portfolio website",
+  title: {
+    template: "%s | Aditya Shibu",
+    default: "Aditya Shibu",
+  },
+  description: "Portfolio of Aditya Shibu, a Computer Science student specializing in AI, Machine Learning, and Robotics.",
+  keywords: ["Aditya Shibu", "Aditya S", "Portfolio", "Autonomous Systems Developer", "Robotics", "Heriot-Watt", "Dubai"],
+  authors: [{ name: "Aditya Shibu" }],
+  
+  openGraph: {
+    title: "Aditya Shibu - Personal Portfolio",
+    description: "Check out my personal portfolio showcasing my projects and skills.",
+    url: "https://adityashibu.vercel.app/",
+    siteName: "Aditya Shibu",
+    images: [
+      {
+        url: "/assets/photo.png", 
+        width: 800,
+        height: 600,
+        alt: "Aditya Shibu Portfolio",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Aditya Shibu - Personal Portfolio",
+    description: "Check out my personal portfolio showcasing my projects and skills.",
+    images: ["/assets/photo.png"],
+  },
+  
+  icons: {
+    icon: "/favicon.ico?v=2",
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <Head>
-        <title>{metadata.title}</title>
-        <meta name="description" content={metadata.description} />
-
-        {/* Favicon */}
-        <link rel="icon" href="/favicon.ico?v=2" sizes="any" />
-
-        {/* Open Graph Meta Tags */}
-        <meta property="og:title" content="Aditya S - Personal Portfolio" />
-        <meta
-          property="og:description"
-          content="Check out my personal portfolio showcasing my projects and skills."
-        />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://adityashibu.vercel.app/" />
-        <meta property="og:image" content="/assets/photo.png" />
-        <meta
-          property="og:image:alt"
-          content="Preview of my personal portfolio website"
-        />
-
-        {/* Twitter Card Meta Tags */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Aditya S - Personal Portfolio" />
-        <meta
-          name="twitter:description"
-          content="Check out my personal portfolio showcasing my projects and skills."
-        />
-        <meta name="twitter:image" content="/assets/photo.png" />
-        <meta
-          name="twitter:image:alt"
-          content="Preview of my personal portfolio website"
-          w
-        />
-
-        {/* Additional meta for SEO */}
-        <meta name="author" content="Aditya S" />
-        <meta
-          name="keywords"
-          content="portfolio, Aditya S, web developer, projects, personal website"
-        />
-      </Head>
       <body className={`${jetBrainsMono.variable}`}>
         <Header />
         <StairTransition />
