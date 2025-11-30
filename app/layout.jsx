@@ -17,6 +17,8 @@ const jetBrainsMono = JetBrains_Mono({
 });
 
 export const metadata = {
+  metadataBase: new URL('https://adityashibu.vercel.app'),
+  
   title: {
     template: "%s | Aditya Shibu",
     default: "Aditya Shibu",
