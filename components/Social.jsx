@@ -9,8 +9,9 @@ const Socials = [
     },
     {
         icon: <FaInstagram />,
-        link: "https://www.instagram.com/adwii.iii"
+        link: "https://www.instagram.com/adityashibuu/"
     },
+
     {
         icon: <FaWhatsapp />,
         link: "https://wa.me/971543547825"

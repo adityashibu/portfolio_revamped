@@ -29,15 +29,15 @@ const Home = () => {
   };
 
   const neofetchData = `
-ADITYA SHIBU // PORTFOLIO_V1.0.4
+ADITYA SHIBU // PORTFOLIO_V1.0.0
 --------------------------------
     _    ____  ___ _____ __   __ _      ____  _   _ ___ ____  _   _ 
    / \\  |  _ \\|_ _|_   _\\ \\ / / / \\    / ___|| | | |_ _| __ )| | | |
-  / _ \\ | | | || |  | |   \\ V / / _ \\   \\___ \\| |_| || ||  _ \\| | | |
- / ___ \\| |_| || |  | |    | | / ___ \\   ___) |  _  || || |_) | |_| |
-/_/   \\_\\____/|___| |_|    |_|/_/   \\_\\ |____/|_| |_|___|____/ \\___/ 
+  / _ \\ | | | || |  | |  \\ V / / _ \\   \\___ \\| |_| || ||  _ \\| | | |
+ / ___ \\| |_| || |  | |   | | / ___ \\   ___) |  _  || || |_) | |_| |
+/_/   \\_\\____/|___| |_|   |_|/_/   \\_\\ |____/|_| |_|___|____/ \\___/ 
 
-IDENTITY: Aditya Shibu
+\nIDENTITY: Aditya Shibu
 STATUS:   Autonomous Systems Developer
 ACADEMIC: BSc (Hons) Computer Science w/ AI (4.0/4.0)
 EXPERTISE: Autonomous Systems | Perception | Robotics
@@ -126,8 +126,22 @@ AWARDS:   1st Place FS-AI UK | FS-AI Real World AI Award
                 <span>{entry.content}</span>
               </div>
             ) : (
-              <div className={entry.content.includes("___") ? "text-accent font-bold leading-none hidden md:block" : entry.content.includes("ADITYA SHIBU //") ? "text-accent font-bold block" : "text-white/80"}>
-                {entry.content}
+              <div className={entry.content.includes("_") && entry.content.length > 50 && entry.type === "output" && i < 2 ? "text-accent font-bold leading-none hidden md:block" : entry.content.includes("ADITYA SHIBU //") ? "text-accent font-bold block" : "text-white/80"}>
+                {entry.content.split("\n").map((line, lineIdx) => {
+                  if (line.trim() === "" && lineIdx > 0) {
+                    return <div key={lineIdx} className="h-4"></div>;
+                  }
+                  if (line.includes(":") && !line.includes("___") && !line.includes("http")) {
+                    const [key, ...rest] = line.split(":");
+                    return (
+                      <div key={lineIdx}>
+                        <span className="text-accent font-bold">{key}:</span>
+                        <span className="text-white/80"> {rest.join(":")}</span>
+                      </div>
+                    );
+                  }
+                  return <div key={lineIdx}>{line}</div>;
+                })}
               </div>
             )}
           </div>
