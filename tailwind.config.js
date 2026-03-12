@@ -23,10 +23,10 @@ module.exports = {
 		},
 		extend: {
 			colors: {
-				primary: '#1c1c22',
+				primary: '#0a0a0b',
 				accent: {
-					DEFAULT: '#00c5ff',
-					hover: '#4cd7ff',
+					DEFAULT: '#FFB000',
+					hover: '#FFD700',
 				}
 			},
 			borderRadius: {

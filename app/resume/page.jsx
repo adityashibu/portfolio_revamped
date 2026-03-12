@@ -1,26 +1,18 @@
 "use client";
 
 import {
-  FaHtml5,
-  FaJs,
-  FaCss3Alt,
-  FaReact,
-  FaPython,
-  FaGitAlt,
-  FaJava,
-  FaNodeJs,
-} from "react-icons/fa";
-import {
   SiTailwindcss,
   SiNextdotjs,
   SiVercel,
-  SiNetlify,
-  SiMongodb,
-  SiExpress,
-  SiTensorflow,
-  SiKeras,
+  SiPytorch,
   SiNumpy,
+  SiPython,
+  SiCplusplus,
+  SiNvidia,
+  SiReact,
+  SiUbuntu,
 } from "react-icons/si";
+import { FaCode } from "react-icons/fa";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
@@ -49,11 +41,11 @@ const experienceYears = calculateExperience(startDate);
 const about = {
   title: "About Me",
   description:
-    "I am a third-year Computer Science student at Heriot-Watt University, Dubai Campus, with a specialization in Artificial Intelligence. My academic journey has fostered a deep interest in the fields of web development, AL and ML.",
+    "I am a Computer Science student at Heriot-Watt University specializing in AI. My work focuses on Autonomous Systems, Robotics, and Deep Learning, with experience spanning across NYU CAIR, Atlas Racing, and several research labs.",
   info: [
     {
       fieldName: "Name",
-      fieldValue: "Aditya S",
+      fieldValue: "Aditya Shibu",
     },
     {
       fieldName: "Phone",
@@ -61,11 +53,11 @@ const about = {
     },
     {
       fieldName: "Experience",
-      fieldValue: `${experienceYears}+ years`,
+      fieldValue: `Active Research & Industry`,
     },
     {
       fieldName: "Email",
-      fieldValue: "as2397@hw.ac.uk",
+      fieldValue: "adityashibuonline@gmail.com",
     },
     {
       fieldName: "Languages",
@@ -78,60 +70,68 @@ const about = {
 const experience = {
   title: "My Work Experience",
   description:
-    "The below are my relevant work experiences in the field of web development and automation.",
+    "Industrial and Research experience in Autonomous Systems and AI.",
   items: [
     {
+      company: "NYU CAIR",
+      position: "Research Collaborator",
+      duration: "Dec 2025 - Present",
+    },
+    {
+      company: "AimBeyonD",
+      position: "Research Intern",
+      duration: "Nov 2025 - Present",
+    },
+    {
       company: "Atlas Racing FS",
-      position: "Autonomous Systems Developer",
+      position: "Head of Driverless",
       duration: "May 2025 - Present",
     },
     {
       company: "Creed&Bear",
       position: "Quantum Computing Intern",
-      duration: "January 2025 - Present",
+      duration: "Jan 2025 - June 2025",
     },
     {
       company: "Clarus24 IT Solutions",
       position: "Frontend Developer",
-      duration: "August 2024 - October 2024",
-    },
-    {
-      company: "Fincasa Capital",
-      position: "AI and Automation Intern",
-      duration: "May 2024 - July 2024",
-    },
-    {
-      company: "Lets Go Tourism LLC",
-      position: "IT Engineer",
-      duration: "September 2023 - April 2024",
+      duration: "Aug 2024 - Oct 2024",
     },
   ],
 };
 
 // skills data
 const skills = {
-  title: "My Skills",
-  description: "Explore the technologies and tools I am proficient in.",
+  title: "My Tech Stack",
+  description: "Advanced tools and frameworks for AI, Robotics, and Web.",
   skillList: [
     {
-      icon: <SiTensorflow />,
-      name: "Tensorflow",
-    },
-    {
-      icon: <SiNumpy />,
-      name: "Numpy",
-    },
-    {
-      icon: <FaPython />,
+      icon: <SiPython />,
       name: "Python",
     },
     {
-      icon: <FaJs />,
-      name: "Javascript",
+      icon: <SiCplusplus />,
+      name: "C++",
     },
     {
-      icon: <FaReact />,
-      name: "React",
+      icon: <SiPytorch />,
+      name: "PyTorch",
+    },
+    {
+      icon: <FaCode />,
+      name: "ROS 2",
+    },
+    {
+      icon: <SiNvidia />,
+      name: "TensorRT / CUDA",
+    },
+    {
+      icon: <SiUbuntu />,
+      name: "Ubuntu/Linux",
+    },
+    {
+      icon: <SiReact />,
+      name: "React.js",
     },
     {
       icon: <SiNextdotjs />,
@@ -142,24 +142,8 @@ const skills = {
       name: "Tailwind CSS",
     },
     {
-      icon: <FaNodeJs />,
-      name: "Node.js",
-    },
-    {
-      icon: <SiExpress />,
-      name: "Express.js",
-    },
-    {
-      icon: <FaJava />,
-      name: "Java",
-    },
-    {
-      icon: <FaGitAlt />,
-      name: "Git",
-    },
-    {
-      icon: <SiVercel />,
-      name: "Vercel",
+      icon: <SiNumpy />,
+      name: "Numpy",
     },
   ],
 };
@@ -168,17 +152,65 @@ const skills = {
 const education = {
   title: "My Education",
   description:
-    "Learn more about my academic journey and the courses I have completed.",
+    "Academic background focused on Computer Science and AI.",
   items: [
     {
-      institution: "Heriot Watt University",
-      degree: "BSc (Hons) CS with AI",
-      duration: "September 2023 - Present",
+      institution: "Heriot-Watt University",
+      degree: "BSc (Hons) CS with AI (GPA 4.0/4.0)",
+      duration: "Sept 2023 - Present",
     },
     {
       institution: "Indian High School, Dubai",
       degree: "High School",
       duration: "April 2011 - March 2023",
+    },
+  ],
+};
+
+// awards data
+const awards = {
+  title: "Awards & Certifications",
+  description: "Recognitions and certifications in Robotics and Engineering.",
+  items: [
+    {
+      title: "SIMULINK / MATLAB Onramp",
+      issuer: "Mathworks",
+      date: "March 2026",
+    },
+    {
+      title: "Guide to Autonomous Robots",
+      issuer: "NVIDIA",
+      date: "March 2026",
+    },
+    {
+      title: "FS-AI Overall Statics Winner",
+      issuer: "IMechE",
+      date: "July 2025",
+    },
+    {
+      title: "FS-AI Real World Award",
+      issuer: "IMechE",
+      date: "July 2025",
+    },
+    {
+      title: "Deep Learning Essentials",
+      issuer: "IBM",
+      date: "Jan 2025",
+    },
+    {
+      title: "GitHub Foundations",
+      issuer: "GitHub",
+      date: "Dec 2024",
+    },
+    {
+      title: "Foundational C#",
+      issuer: "Microsoft",
+      date: "June 2024",
+    },
+    {
+      title: "CS50P - Python Intro",
+      issuer: "Harvard/edX",
+      date: "July 2023",
     },
   ],
 };
@@ -191,72 +223,73 @@ const Resume = () => {
         opacity: 1,
         transition: { delay: 2.4, duration: 0.4, ease: "easeIn" },
       }}
-      className="min-h-[80vh] flex items-center justify-center py-12 xl:py-0"
+      className="h-full flex items-center justify-center py-2 overflow-hidden"
     >
       <div className="container mx-auto">
         <Tabs
           defaultValue="about"
-          className="flex flex-col xl:flex-row gap-[60px]"
+          className="flex flex-col xl:flex-row gap-8"
         >
-          <TabsList className="flex flex-col w-full max-w-[380px] mx-auto xl:mx-0 gap-6">
-            <TabsTrigger value="about">About</TabsTrigger>
-            <TabsTrigger value="education">Education</TabsTrigger>
-            <TabsTrigger value="experience">Experience</TabsTrigger>
-            <TabsTrigger value="skills">Skills</TabsTrigger>
+          <TabsList className="flex flex-col w-full max-w-[200px] mx-auto xl:mx-0 gap-3">
+            <TabsTrigger value="about" className="text-xs py-2">About</TabsTrigger>
+            <TabsTrigger value="education" className="text-xs py-2">Education</TabsTrigger>
+            <TabsTrigger value="experience" className="text-xs py-2">Experience</TabsTrigger>
+            <TabsTrigger value="skills" className="text-xs py-2">Skills</TabsTrigger>
+            <TabsTrigger value="awards" className="text-xs py-2">Awards</TabsTrigger>
           </TabsList>
 
           {/* Content */}
-          <div className="min-h-[70vh] w-full">
+          <div className="h-[450px] w-full">
             {/* About */}
             <TabsContent
               value="about"
-              className="w-full text-center xl:text-left"
+              className="w-full text-left"
             >
-              <div className="flex flex-col gap-[30px]">
-                <h3 className="text-4xl font-bold">{about.title}</h3>
-                <p className="max-w-[600px] text-white/60 mx-auto xl:mx-0">
+              <div className="flex flex-col gap-4 border border-accent/20 p-4 bg-[#0d0d0f]">
+                <h3 className="text-xl font-bold text-accent uppercase tracking-tighter">{'>'} BIOGRAPHICAL_DATA</h3>
+                <p className="max-w-[800px] text-white/70 text-xs leading-relaxed">
                   {about.description}
                 </p>
-                <ul className="grid grid-cols-1 xl:grid-cols-2 gap-y-6 max-w-[620px] mx-auto xl:mx-0">
+                <div className="grid grid-cols-1 xl:grid-cols-2 gap-y-2 gap-x-8 mt-2 border-t border-accent/10 pt-4">
                   {about.info.map((info, index) => {
                     return (
-                      <li
+                      <div
                         key={index}
-                        className="flex items-center justify-between xl:justify-start gap-x-12 sm:gap-4"
+                        className="flex items-center gap-4 text-[11px]"
                       >
-                        <span className="text-accent">{info.fieldName}</span>
-                        <span className="text-xl">{info.fieldValue}</span>
-                      </li>
+                        <span className="text-accent font-bold w-20">[{info.fieldName}]</span>
+                        <span className="text-white/90">{info.fieldValue}</span>
+                      </div>
                     );
                   })}
-                </ul>
+                </div>
               </div>
             </TabsContent>
 
             {/* Education */}
-            <TabsContent value="education" className="w-full">
-              <div className="flex flex-col gap-[30px] text-center xl:text-left">
-                <h3 className="text-4xl font-bold">{education.title}</h3>
-                <p className="max-w-[600px] text-white/60 mx-auto xl:mx-0">
-                  {education.description}
-                </p>
-                <ScrollArea className="h-[400px] overflow-y-scroll scrollbar-visible">
-                  <ul className="grid gird-cols-1 lg:grid-cols-2 gap-[30px]">
+            <TabsContent value="education" className="w-full h-full">
+              <div className="flex flex-col gap-4 text-left h-full">
+                <h3 className="text-xl font-bold text-accent uppercase tracking-tighter">{'>'} ACADEMIC_RECORDS</h3>
+                <ScrollArea className="flex-1">
+                  <ul className="flex flex-col gap-3 pr-4">
                     {education.items.map((education, index) => {
                       return (
                         <li
                           key={index}
-                          className="bg-[#232329] h-[184px] py-6 px-10 rounded-xl flex flex-col justify-center items-center lg:items-start gap-1"
+                          className="border border-accent/10 p-4 bg-[#0d0d0f] hover:border-accent/40 transition-all"
                         >
-                          <span className="text-accent">
-                            {education.duration}
-                          </span>
-                          <h3 className="text-2xl max-w-[260px] min-h-[60px] text-center lg:text-left">
+                          <div className="flex justify-between items-start mb-1">
+                             <span className="text-accent text-[10px] font-bold uppercase tracking-widest">
+                               {education.duration}
+                             </span>
+                             <span className="text-[9px] text-white/20">LOG_ID: {index + 102}</span>
+                          </div>
+                          <h3 className="text-md font-bold text-white mb-0.5 uppercase">
                             {education.institution}
                           </h3>
-                          <div className="flex items-center gap-3">
-                            <span className="w-[6px] h-[6px] rounded-full bg-accent"></span>
-                            <p className="text-white/60">{education.degree}</p>
+                          <div className="flex items-center gap-2">
+                            <span className="text-accent text-xs">»</span>
+                            <p className="text-white/60 text-[11px] font-primary">{education.degree}</p>
                           </div>
                         </li>
                       );
@@ -267,29 +300,29 @@ const Resume = () => {
             </TabsContent>
 
             {/* Experience */}
-            <TabsContent value="experience" className="w-full">
-              <div className="flex flex-col gap-[30px] text-center xl:text-left">
-                <h3 className="text-4xl font-bold">{experience.title}</h3>
-                <p className="max-w-[600px] text-white/60 mx-auto xl:mx-0">
-                  {experience.description}
-                </p>
-                <ScrollArea className="h-[650px] overflow-y-scroll scrollbar-visible">
-                  <ul className="grid gird-cols-1 lg:grid-cols-2 gap-[30px]">
+            <TabsContent value="experience" className="w-full h-full">
+              <div className="flex flex-col gap-4 text-left h-full">
+                <h3 className="text-xl font-bold text-accent uppercase tracking-tighter">{'>'} DEPLOYMENT_HISTORY</h3>
+                <ScrollArea className="flex-1">
+                  <ul className="flex flex-col gap-3 pr-4">
                     {experience.items.map((experience, index) => {
                       return (
                         <li
                           key={index}
-                          className="bg-[#232329] h-[184px] py-6 px-10 rounded-xl flex flex-col justify-center items-center lg:items-start gap-1"
+                          className="border border-accent/10 p-4 bg-[#0d0d0f] hover:border-accent/40 transition-all"
                         >
-                          <span className="text-accent">
-                            {experience.duration}
-                          </span>
-                          <h3 className="text-2xl max-w-[260px] min-h-[60px] text-center lg:text-left">
+                          <div className="flex justify-between items-start mb-1">
+                             <span className="text-accent text-[10px] font-bold uppercase tracking-widest">
+                               {experience.duration}
+                             </span>
+                             <span className="text-[9px] text-white/20">PROC_ID: {index + 201}</span>
+                          </div>
+                          <h3 className="text-md font-bold text-white mb-0.5 uppercase">
                             {experience.company}
                           </h3>
-                          <div className="flex items-center gap-3">
-                            <span className="w-[6px] h-[6px] rounded-full bg-accent"></span>
-                            <p className="text-white/60">
+                          <div className="flex items-center gap-2">
+                            <span className="text-accent text-xs">»</span>
+                            <p className="text-white/60 text-[11px] font-primary">
                               {experience.position}
                             </p>
                           </div>
@@ -303,32 +336,65 @@ const Resume = () => {
 
             {/* Skills */}
             <TabsContent value="skills" className="w-full h-full">
-              <div className="flex flex-col gap-[30px] text-center xl:text-left">
-                <div>
-                  <h3 className="text-4xl font-bold">{skills.title}</h3>
-                  <p className="max-w-[600px] text-white/60 mx-auto xl:mx-0">
-                    {skills.description}
-                  </p>
-                </div>
+              <div className="flex flex-col gap-4 text-left h-full">
+                <h3 className="text-xl font-bold text-accent uppercase tracking-tighter">{'>'} TECHNICAL_ASSETS</h3>
 
-                <ScrollArea className="h-[550px] overflow-y-scroll scrollbar-visible">
-                  <ul className="grid grid-cols-2 sm:grid-cols-4 xl:gap-[30px] gap-4 pr-4">
+                <ScrollArea className="flex-1">
+                  <ul className="grid grid-cols-2 sm:grid-cols-5 gap-3 pr-4">
                     {skills.skillList.map((skill, index) => (
                       <li key={index}>
                         <TooltipProvider delayDuration={100}>
                           <Tooltip>
-                            <TooltipTrigger className="w-full h-[150px] bg-[#232329] rounded-xl flex justify-center items-center group">
-                              <div className="text-7xl group-hover:text-accent transition-all duration-300">
+                            <TooltipTrigger className="w-full h-20 border border-accent/10 bg-[#0d0d0f] flex flex-col justify-center items-center gap-1 group hover:border-accent/50 transition-all">
+                              <div className="text-2xl group-hover:text-accent transition-all duration-300">
                                 {skill.icon}
                               </div>
+                              <span className="text-[9px] uppercase text-white/40 group-hover:text-accent font-primary">
+                                {skill.name}
+                              </span>
                             </TooltipTrigger>
                             <TooltipContent>
-                              <p className="capitalize">{skill.name}</p>
+                              <p className="capitalize text-[10px]">{skill.name}</p>
                             </TooltipContent>
                           </Tooltip>
                         </TooltipProvider>
                       </li>
                     ))}
+                  </ul>
+                </ScrollArea>
+              </div>
+            </TabsContent>
+
+            {/* Awards */}
+            <TabsContent value="awards" className="w-full h-full">
+              <div className="flex flex-col gap-4 text-left h-full">
+                <h3 className="text-xl font-bold text-accent uppercase tracking-tighter">{'>'} MERIT_BADGES</h3>
+                <ScrollArea className="flex-1">
+                  <ul className="flex flex-col gap-3 pr-4">
+                    {awards.items.map((award, index) => {
+                      return (
+                        <li
+                          key={index}
+                          className="border border-accent/10 p-4 bg-[#0d0d0f] hover:border-accent/40 transition-all"
+                        >
+                          <div className="flex justify-between items-start mb-1">
+                             <span className="text-accent text-[10px] font-bold uppercase tracking-widest">
+                               {award.date}
+                             </span>
+                             <span className="text-[9px] text-white/20">VAL_ID: {index + 505}</span>
+                          </div>
+                          <h3 className="text-md font-bold text-white mb-0.5 uppercase leading-tight">
+                            {award.title}
+                          </h3>
+                          <div className="flex items-center gap-2">
+                            <span className="text-accent text-xs">»</span>
+                            <p className="text-white/60 text-[11px] font-primary">
+                              {award.issuer}
+                            </p>
+                          </div>
+                        </li>
+                      );
+                    })}
                   </ul>
                 </ScrollArea>
               </div>

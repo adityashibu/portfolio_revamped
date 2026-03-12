@@ -8,33 +8,33 @@ import { motion } from "framer-motion";
 const experiences = [
   {
     num: "01",
-    title: "React Frontend Developer",
+    title: "Autonomous Systems",
     description:
-      "I am a React Web Developer with around 5 months of experience. I have worked on multiple projects including corporate as well as personal projects and have a good understanding of React and its ecosystem.",
+      "Expertise in end-to-end simulation pipelines (CARLA, Gazebo), perception systems (YOLO, DBSCAN), and path planning (Pure Pursuit, MPC). Led Driverless development for 1st place award-winning teams.",
   },
   {
     num: "02",
-    title: "AI/ML and Python Developer",
+    title: "AI & Deep Learning",
     description:
-      "I have worked on multiple projects with around 2 years of experience using Python and its libraries. I have experience in web scraping, data analysis, and automation using Python.",
+      "Advanced research in Conditional Imitation Learning (CILRS), LiDAR point cloud compression (LiZIP), and real-time Natural Language drone control using Small Language Models (SLMs).",
   },
   {
     num: "03",
-    title: "Embedded Systems and IoT",
+    title: "Robotics & Perception",
     description:
-      "I have worked on and developed multiple projects using Raspberry Pi and C, with hands-on experience in IoT and Embedded Systems. I have developed multiple projects including a arcade game using RPi 3 Model B and C.",
+      "Implementing ROS 2 Humble nodes for drone coordination, sensor fusion with ZED2i stereo cameras and RoboSense Helios LiDAR, and optimizing inference with TensorRT.",
   },
   {
     num: "04",
-    title: "Photography and Videography",
+    title: "Quantum Computing",
     description:
-      "I have been doing photography and videography for around 3 years, working on multiple projects including coverage of academic as well as external events. and have a good understanding of camera settings and editing.",
+      "Developing and optimizing machine learning models to run on quantum circuits for real-life prediction and analysis during industrial internship.",
   },
 ];
 
 const Experience = () => {
   return (
-    <section className="min-h-[80vh] flex flex-col justify-center py-12 xl:py-0">
+    <section className="h-full flex flex-col justify-center py-4">
       <div className="container mx-auto">
         <motion.div
           initial={{ opacity: 0 }}
@@ -42,36 +42,28 @@ const Experience = () => {
             opacity: 1,
             transition: { delay: 2.4, duration: 0.4, ease: "easeIn" },
           }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-[60px]"
+          className="grid grid-cols-1 md:grid-cols-2 gap-4"
         >
           {experiences.map((experience, index) => {
             return (
               <div
                 key={index}
-                className="flex-1 flex flex-col justify-center gap-6 group"
+                className="flex flex-col justify-start gap-2 p-4 border border-accent/10 hover:border-accent/30 transition-all bg-[#0d0d0f]"
               >
-                {/* Top */}
-                <div className="w-full flex justify-between items-center">
-                  <div className="text-5xl font-extrabold text-outline text-transparent group-hover:text-outline-hover transition-all duration-500">
-                    {experience.num}
-                  </div>
-                  <Link
-                    href="/projects"
-                    className="w-[70px] h-[70px] rounded-full bg-white group-hover:bg-accent transition-all duration-500 flex justify-center items-center hover:-rotate-45"
-                  >
-                    <BsArrowDownRight className="text-primary text-3xl group-hover:text-white" />
-                  </Link>
+                <div className="flex items-center gap-2">
+                   <span className="text-accent font-bold text-sm">[0{index + 1}]</span>
+                   <h2 className="text-lg font-bold text-white uppercase tracking-tight">
+                     {experience.title}
+                   </h2>
                 </div>
+                
+                <p className="text-white/70 leading-snug text-[13px]">
+                   {experience.description}
+                </p>
 
-                {/* Title */}
-                <h2 className="text-[42px] font-bold leading-none text-white group-hover:text-accent transition-all duration-500">
-                  {experience.title}
-                </h2>
-                {/* Description */}
-                <p>{experience.description}</p>
-
-                {/* Border */}
-                <div className="border-b-2 border-accent/50 w-full"></div>
+                <div className="text-[9px] text-accent/40 font-primary mt-2">
+                   STATUS: COMPLETED // SECTOR: {experience.title.split(' ')[0]}
+                </div>
               </div>
             );
           })}

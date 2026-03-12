@@ -17,7 +17,14 @@ const Photo = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1, transition: { delay: 2.4, duration: 0.4, ease: "easeInOut" } }}
                 >
-                    <Image src="/assets/photo.png" priority quality={100} fill alt="" className="object-contain rounded-full" />
+                    <div className="relative w-full h-full overflow-hidden rounded-full border-2 border-accent/20">
+                        <Image src="/assets/photo.png" priority quality={100} fill alt="" className="object-contain" />
+                        <motion.div 
+                            className="absolute top-0 left-0 w-full h-[2px] bg-accent/50 z-20"
+                            animate={{ top: ["0%", "100%", "0%"] }}
+                            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                        />
+                    </div>
                 </motion.div>
 
                 {/* Circle */}
@@ -30,8 +37,8 @@ const Photo = () => {
                     <motion.circle
                         cx="253"
                         cy="253"
-                        r="265"
-                        stroke="#00c5ff"
+                        r="253"
+                        stroke="#FFB000"
                         strokeWidth="4"
                         strokeLinecap="round"
                         strokeLinejoin="round"

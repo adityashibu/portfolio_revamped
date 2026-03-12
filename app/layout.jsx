@@ -9,6 +9,8 @@ import { Analytics } from "@vercel/analytics/react";
 import Header from "@/components/Header";
 import PageTransition from "@/components/PageTransition";
 import StairTransition from "@/components/StairTransition";
+import { RetroModeProvider } from "@/components/RetroModeContext";
+import TerminalWindow from "@/components/TerminalWindow";
 
 const jetBrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -23,8 +25,8 @@ export const metadata = {
     template: "%s | Aditya Shibu",
     default: "Aditya Shibu",
   },
-  description: "Portfolio of Aditya Shibu, a Computer Science student specializing in AI, Machine Learning, and Robotics.",
-  keywords: ["Aditya Shibu", "Aditya S", "Portfolio", "Autonomous Systems Developer", "Robotics", "Heriot-Watt", "Dubai"],
+  description: "Portfolio of Aditya Shibu, a Computer Science student specializing in Autonomous Systems, AI, and Robotics. Researching LiDAR compression and drone control.",
+  keywords: ["Aditya Shibu", "Autonomous Systems", "AI Researcher", "Robotics Engineer", "Heriot-Watt", "LiZIP", "SkySim"],
   authors: [{ name: "Aditya Shibu" }],
   
   openGraph: {
@@ -60,9 +62,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${jetBrainsMono.variable}`}>
-        <Header />
-        <StairTransition />
-        <PageTransition>{children}</PageTransition>
+        <RetroModeProvider>
+          <TerminalWindow>
+            <Header />
+            <PageTransition>{children}</PageTransition>
+          </TerminalWindow>
+        </RetroModeProvider>
 
         <SpeedInsights />
         <Analytics />

@@ -137,7 +137,7 @@ const Stats = () => {
       text: "PRs Created and Merged",
     },
     {
-      num: 7,
+      num: 12,
       text: "Technologies Mastered",
     },
   ];

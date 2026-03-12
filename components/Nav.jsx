@@ -8,7 +8,7 @@ const Links = [
         path: '/'
     },
     {
-        name: "experience",
+        name: "expertise",
         path: '/experience'
     },
     {
@@ -27,18 +27,26 @@ const Links = [
 
 const Nav = () => {
     const pathname = usePathname();
-    console.log(pathname)
-
 
     return (
-        <nav className="flex gap-8">
+        <nav className="flex gap-4">
             {Links.map((link, index) => {
-                return <Link href={link.path} key={index} className={`${link.path == pathname && "text-accent border-b-2 border-accent"} capitalize font-medium hover:text-accent transition-all`}>
-                    {link.name}
-                </Link>
+                const isActive = link.path === pathname;
+                return (
+                    <Link 
+                        href={link.path} 
+                        key={index} 
+                        className={`
+                            ${isActive ? "bg-accent text-primary" : "text-accent border border-accent/30 hover:bg-accent/10"} 
+                            px-3 py-1 text-xs md:text-sm font-primary transition-all flex items-center gap-1 uppercase tracking-tighter
+                        `}
+                    >
+                        ./{link.name}{isActive ? "" : ".sh"}
+                    </Link>
+                );
             })}
         </nav>
-    )
-}
+    );
+};
 
 export default Nav

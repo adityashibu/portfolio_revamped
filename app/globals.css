@@ -19,11 +19,74 @@
     @apply text-[20px] xl:text-[24px] leading-[1.1] font-semibold;
   }
 
-  .text-outline {
-    -webkit-text-stroke: 1px #ffffff;
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #0a0a0b;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #FFB00022;
+    border-radius: 3px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #FFB00044;
   }
 
-  .text-outline-hover {
-    -webkit-text-stroke: 1px #00c5ff;
+  .terminal-glow {
+    text-shadow: 0 0 5px rgba(255, 176, 0, 0.5);
   }
-}
+
+  .terminal-border-glow {
+    box-shadow: 0 0 30px rgba(0, 0, 0, 1), 0 0 15px rgba(255, 176, 0, 0.05);
+  }
+
+  @keyframes flicker {
+    0% { opacity: 0.97; }
+    5% { opacity: 0.95; }
+    10% { opacity: 0.9; }
+    15% { opacity: 0.95; }
+    20% { opacity: 0.98; }
+    25% { opacity: 0.95; }
+    30% { opacity: 0.9; }
+    35% { opacity: 0.95; }
+    40% { opacity: 0.98; }
+    45% { opacity: 0.9; }
+    50% { opacity: 0.95; }
+    55% { opacity: 0.98; }
+    60% { opacity: 0.95; }
+    65% { opacity: 0.9; }
+    70% { opacity: 0.95; }
+    75% { opacity: 0.98; }
+    80% { opacity: 0.95; }
+    85% { opacity: 0.9; }
+    90% { opacity: 0.95; }
+    95% { opacity: 0.98; }
+    100% { opacity: 1; }
+  }
+
+  .retro-flicker {
+    animation: flicker 0.15s infinite;
+  }
+
+  .scanlines {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(
+      rgba(18, 16, 16, 0) 50%,
+      rgba(0, 0, 0, 0.1) 50%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 0, 0, 0.03),
+      rgba(0, 255, 0, 0.01),
+      rgba(0, 0, 255, 0.03)
+    );
+    background-size: 100% 4px, 3px 100%;
+    pointer-events: none;
+    z-index: 9999;
+  }
+  }

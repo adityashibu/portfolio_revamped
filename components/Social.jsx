@@ -21,7 +21,7 @@ const Socials = [
     },
     {
         icon: <PiMicrosoftOutlookLogoFill />,
-        link: "mailto:as2397@hw.ac.uk"
+        link: "mailto:adityashibuonline@gmail.com"
     },
 ]
 
