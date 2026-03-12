@@ -4,6 +4,7 @@ import React from "react";
 import { usePathname } from "next/navigation";
 
 import { motion } from "framer-motion";
+import ColorSelector from "./ColorSelector";
 
 const TerminalWindow = ({ children }) => {
   const pathname = usePathname();
@@ -39,13 +40,16 @@ const TerminalWindow = ({ children }) => {
         </div>
 
         {/* Bottom Bar / Status */}
-        <div className="h-6 bg-[#1a1a1e] border-t border-accent/10 flex items-center px-4 justify-between text-[10px] font-primary text-accent/40 uppercase tracking-widest rounded-b-lg">
-          <div className="flex gap-4">
-             <span>READY</span>
+        <div className="h-8 bg-[#1a1a1e] border-t border-accent/10 flex items-center px-4 justify-between text-[10px] font-primary text-accent/40 uppercase tracking-widest rounded-b-lg">
+          <div className="flex gap-4 items-center">
+             <span className="hidden sm:block">READY</span>
              <span>UTF-8</span>
+             <div className="ml-2">
+                <ColorSelector />
+             </div>
           </div>
-          <div className="flex gap-4">
-             <span>Ln 1, Col 1</span>
+          <div className="flex gap-4 items-center">
+             <span className="hidden sm:block">Ln 1, Col 1</span>
              <span>(C) 2026 ADITYA_SHIBU</span>
           </div>
         </div>

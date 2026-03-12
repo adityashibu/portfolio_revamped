@@ -22,7 +22,7 @@ const Header = () => {
         {/* Desktop Nav as Tabs */}
         <div className="hidden xl:flex items-center gap-2">
           <Nav />
-          <div className="ml-4 h-8 w-[1px] bg-accent/20"></div>
+          <div className="ml-4 h-8 w-[1px] bg-accent/20 mr-2"></div>
           <RetroModeToggle />
         </div>
 

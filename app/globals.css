@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --accent: #FFB000;
+  --accent-hover: #FFD700;
+}
+
 @layer base {
   body {
     @apply font-primary bg-primary text-white leading-loose;
@@ -26,19 +31,19 @@
     background: #0a0a0b;
   }
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #FFB00022;
+    background: color-mix(in srgb, var(--accent), transparent 85%);
     border-radius: 3px;
   }
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #FFB00044;
+    background: color-mix(in srgb, var(--accent), transparent 70%);
   }
 
   .terminal-glow {
-    text-shadow: 0 0 5px rgba(255, 176, 0, 0.5);
+    text-shadow: 0 0 5px color-mix(in srgb, var(--accent), transparent 50%);
   }
 
   .terminal-border-glow {
-    box-shadow: 0 0 30px rgba(0, 0, 0, 1), 0 0 15px rgba(255, 176, 0, 0.05);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 1), 0 0 15px color-mix(in srgb, var(--accent), transparent 95%);
   }
 
   @keyframes flicker {
