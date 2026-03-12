@@ -216,7 +216,7 @@ ADITYA SHIBU // PORTFOLIO_V1.0.0
 STATUS:   Autonomous Systems Developer
 ACADEMIC: BSc (Hons) Computer Science w/ AI (4.0/4.0)
 EXPERTISE: Autonomous Systems | Perception | Robotics
-CURRENT:  Research @ NYU CAIR | Head of Driverless @ Atlas Racing
+CURRENT:  Research @ HWUD & NYU CAIR | Head of Driverless @ Atlas Racing
 CORE_LIBS: PyTorch, ROS2, CUDA, TensorRT, C++
 RESEARCH: LiZIP (Neural LiDAR Compression @ NeurIPS Track)
 AWARDS:   1st Place FS-AI UK | FS-AI Real World AI Award
