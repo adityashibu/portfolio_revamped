@@ -54,6 +54,50 @@ const MatrixEffect = () => {
   return <canvas ref={canvasRef} className="fixed inset-0 z-50 pointer-events-none opacity-40" />;
 };
 
+const TrackVisualization = () => {
+  const [pos, setPos] = useState(0);
+  const trackWidth = 40;
+  const path = [
+    { x: 5, y: 2 }, { x: 10, y: 1 }, { x: 20, y: 1 }, { x: 30, y: 2 },
+    { x: 35, y: 5 }, { x: 30, y: 8 }, { x: 20, y: 9 }, { x: 10, y: 8 },
+    { x: 5, y: 5 }
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setPos((prev) => (prev + 1) % path.length);
+    }, 200);
+    return () => clearInterval(interval);
+  }, [path.length]);
+
+  const grid = Array(11).fill(0).map(() => Array(trackWidth).fill(" "));
+  
+  // Draw Track Border
+  for(let i=0; i<trackWidth; i++) { grid[0][i] = "-"; grid[10][i] = "-"; }
+  for(let i=0; i<11; i++) { grid[i][0] = "|"; grid[i][trackWidth-1] = "|"; }
+
+  // Draw Path
+  path.forEach((p, i) => {
+    if (grid[p.y] && grid[p.y][p.x]) grid[p.y][p.x] = ".";
+  });
+
+  // Draw Vehicle
+  const v = path[pos];
+  if (grid[v.y] && grid[v.y][v.x]) grid[v.y][v.x] = "V";
+
+  return (
+    <div className="font-mono text-accent leading-none mt-4">
+      <div className="mb-2 uppercase text-[10px] opacity-50">Path Planning Simulation // Algorithm: Pure Pursuit</div>
+      {grid.map((row, i) => (
+        <div key={i}>{row.join("")}</div>
+      ))}
+      <div className="mt-2 text-[10px] uppercase">
+        Vehicle_Coord: X:{v.x} Y:{v.y} | Velocity: 5.2m/s | Status: Tracking
+      </div>
+    </div>
+  );
+};
+
 const Home = () => {
   const [history, setHistory] = useState([]);
   const [input, setInput] = useState("");
@@ -62,6 +106,7 @@ const Home = () => {
   const [commandHistory, setCommandHistory] = useState([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [isMatrixMode, setIsMatrixMode] = useState(false);
+  const [isTrackMode, setIsTrackMode] = useState(false);
   const [githubStats, setGithubStats] = useState({ repos: 0, commits: 0, prs: 0 });
   
   const scrollRef = useRef(null);
@@ -72,7 +117,7 @@ const Home = () => {
     "help", "about", "skills", "projects", "expertise", "resume", "contact", 
     "neofetch", "clear", "ls", "fetch_cv", "expertise.sh", "projects.sh", 
     "resume.sh", "contact.sh", "fetch_cv.bin", "matrix", "sudo", "socials", "whoami", "htop", "nvidia-smi",
-    "telemetry", "lidar"
+    "telemetry", "lidar", "track"
   ];
 
   const sectionOverviews = {
@@ -83,7 +128,7 @@ const Home = () => {
   };
 
   const commands = {
-    help: "Available commands: [about, skills, projects, expertise, resume, contact, neofetch, clear, ls, fetch_cv, matrix, sudo, socials, whoami, htop, nvidia-smi, telemetry, lidar]",
+    help: "Available commands: [about, skills, projects, expertise, resume, contact, neofetch, clear, ls, fetch_cv, matrix, sudo, socials, whoami, htop, nvidia-smi, telemetry, lidar, track]",
     about: "Identity: Aditya Shibu. BSc (Hons) CS w/ AI @ Heriot-Watt (GPA 4.0). Specializing in Autonomous Systems.",
     skills: "Core: PyTorch, ROS2, CUDA, TensorRT, C++, Python, Next.js, TailwindCSS.",
     ls: "expertise.sh  projects.sh  resume.sh  contact.sh  fetch_cv.bin  socials.sh",
@@ -106,6 +151,7 @@ const Home = () => {
     .      .      .      .      .
     [LiDAR Sweep Complete: Frame 0xAF23]
     `,
+    track: "Initializing Path Planning Visualization Node...",
   };
 
   const getNvidiaSmiOutput = () => {
@@ -283,17 +329,25 @@ AWARDS:   1st Place FS-AI UK | FS-AI Real World AI Award
 
       // Flush history for every new command
       let newHistory = [{ type: "input", content: rawInput }];
+      setIsTrackMode(false); // Exit track mode on any new command
 
       if (pendingAction) {
         if (cmd === "y" || cmd === "yes") {
-          newHistory.push({ type: "output", content: `Redirecting to ${pendingAction.path}...` });
-          setHistory(newHistory);
-          setTimeout(() => router.push(pendingAction.path), 500);
+          if (pendingAction.path === "INTERNAL_TRACK") {
+            setIsTrackMode(true);
+            newHistory.push({ type: "output", content: "Launching Path Planning Visualization..." });
+            setPendingAction(null);
+          } else {
+            newHistory.push({ type: "output", content: `Redirecting to ${pendingAction.path}...` });
+            setHistory(newHistory);
+            setTimeout(() => router.push(pendingAction.path), 500);
+            return;
+          }
         } else {
           newHistory.push({ type: "output", content: "Action cancelled." });
-          setHistory(newHistory);
           setPendingAction(null);
         }
+        setHistory(newHistory);
         return;
       }
 
@@ -313,6 +367,17 @@ AWARDS:   1st Place FS-AI UK | FS-AI Real World AI Award
           newHistory.push({ type: "output", content: getNvidiaSmiOutput() });
         }
         setHistory(newHistory);
+      } else if (cmd === "track" || cmd === "track --visualize") {
+        if (cmd === "track --visualize") {
+          setIsTrackMode(!isTrackMode);
+          newHistory.push({ type: "output", content: isTrackMode ? "Closing visualization..." : "Launching Path Planning Visualization..." });
+          setHistory(newHistory);
+        } else {
+          newHistory.push({ type: "output", content: "Autonomous Racing Path Planning node. Visualizes Pure Pursuit trajectory tracking." });
+          newHistory.push({ type: "output", content: `Do you want to visualize? [y/n]` });
+          setHistory(newHistory);
+          setPendingAction({ section: "track", path: "INTERNAL_TRACK" });
+        }
       } else if (cmd === "neofetch") {
         // Reset command area
         setHistory([]);
@@ -403,7 +468,9 @@ AWARDS:   1st Place FS-AI UK | FS-AI Real World AI Award
 
         {/* Dynamic Interactive Body */}
         <div className="mb-4">
-          {history.length === 0 ? (
+          {isTrackMode ? (
+            <TrackVisualization />
+          ) : history.length === 0 ? (
             <div className="text-white/80 animate-pulse">
               Welcome to Aditya's Portfolio Terminal. Type "help" to see available commands.
             </div>
