@@ -33,6 +33,25 @@ export const RetroModeProvider = ({ children }) => {
   const updateRootStyles = (color) => {
     document.documentElement.style.setProperty("--accent", color.primary);
     document.documentElement.style.setProperty("--accent-hover", color.hover);
+    updateFavicon(color.primary);
+  };
+
+  const updateFavicon = (color) => {
+    const svg = `
+      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
+        <text y='75' x='50' text-anchor='middle' font-family='monospace' font-weight='bold' font-size='80' fill='${color}'>[A]</text>
+      </svg>
+    `.trim();
+    
+    const href = `data:image/svg+xml,${encodeURIComponent(svg)}`;
+    
+    let link = document.querySelector("link[rel*='icon']");
+    if (!link) {
+      link = document.createElement('link');
+      link.rel = 'shortcut icon';
+      document.getElementsByTagName('head')[0].appendChild(link);
+    }
+    link.href = href;
   };
 
   const toggleRetro = () => {
