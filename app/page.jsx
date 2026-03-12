@@ -71,7 +71,8 @@ const Home = () => {
   const allCommands = [
     "help", "about", "skills", "projects", "expertise", "resume", "contact", 
     "neofetch", "clear", "ls", "fetch_cv", "expertise.sh", "projects.sh", 
-    "resume.sh", "contact.sh", "fetch_cv.bin", "matrix", "sudo", "socials", "whoami", "htop", "nvidia-smi"
+    "resume.sh", "contact.sh", "fetch_cv.bin", "matrix", "sudo", "socials", "whoami", "htop", "nvidia-smi",
+    "telemetry", "lidar"
   ];
 
   const sectionOverviews = {
@@ -82,7 +83,7 @@ const Home = () => {
   };
 
   const commands = {
-    help: "Available commands: [about, skills, projects, expertise, resume, contact, neofetch, clear, ls, fetch_cv, matrix, sudo, socials, whoami, htop, nvidia-smi]",
+    help: "Available commands: [about, skills, projects, expertise, resume, contact, neofetch, clear, ls, fetch_cv, matrix, sudo, socials, whoami, htop, nvidia-smi, telemetry, lidar]",
     about: "Identity: Aditya Shibu. BSc (Hons) CS w/ AI @ Heriot-Watt (GPA 4.0). Specializing in Autonomous Systems.",
     skills: "Core: PyTorch, ROS2, CUDA, TensorRT, C++, Python, Next.js, TailwindCSS.",
     ls: "expertise.sh  projects.sh  resume.sh  contact.sh  fetch_cv.bin  socials.sh",
@@ -90,6 +91,21 @@ const Home = () => {
     sudo: "Error: User is not in the sudoers file. This incident will be reported.",
     whoami: "aditya@portfolio: Autonomous Systems Developer // AI Researcher // Human",
     socials: "/home/aditya/socials\n├── github.lnk -> https://github.com/adityashibu\n├── linkedin.lnk -> https://linkedin.com/in/adityashibu\n├── instagram.lnk -> https://instagram.com/adityashibuu/\n└── email.bin -> adityashibuonline@gmail.com",
+    telemetry: "Fetching live telemetry from Atlas-Racing-FS node...\n[LIVE] Velocity: 42.5 km/h\n[LIVE] Steering: 2.4°\n[LIVE] LiDAR: Scanning (1024 pts/sec)\n[LIVE] Perception: Detected 4 objects (cones)\n[LIVE] GPS: 25.09°N, 55.15°E",
+    lidar: `
+    .      .      .      .      .
+      .   .   .   .   .   .   .
+        .  .  .  .  .  .  .
+          . . . . . . .
+            . . . . .
+              [CAR]
+            . . . . .
+          . . . . . . .
+        .  .  .  .  .  .  .
+      .   .   .   .   .   .   .
+    .      .      .      .      .
+    [LiDAR Sweep Complete: Frame 0xAF23]
+    `,
   };
 
   const getNvidiaSmiOutput = () => {

@@ -5,12 +5,8 @@ import "./globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 
-// Import components
-import Header from "@/components/Header";
-import PageTransition from "@/components/PageTransition";
-import StairTransition from "@/components/StairTransition";
-import { RetroModeProvider } from "@/components/RetroModeContext";
-import TerminalWindow from "@/components/TerminalWindow";
+// Import client wrapper
+import ClientLayout from "@/components/ClientLayout";
 
 const jetBrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -62,12 +58,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${jetBrainsMono.variable}`}>
-        <RetroModeProvider>
-          <TerminalWindow>
-            <Header />
-            <PageTransition>{children}</PageTransition>
-          </TerminalWindow>
-        </RetroModeProvider>
+        <ClientLayout>
+          {children}
+        </ClientLayout>
 
         <SpeedInsights />
         <Analytics />
