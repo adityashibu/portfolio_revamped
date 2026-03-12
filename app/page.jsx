@@ -290,10 +290,21 @@ AWARDS:   1st Place FS-AI UK | FS-AI Real World AI Award
         newHistory.push({ type: "output", content: getHtopOutput() });
         setHistory(newHistory);
       } else if (cmd === "nvidia-smi") {
-        newHistory.push({ type: "output", content: getNvidiaSmiOutput() });
+        if (window.innerWidth < 768) {
+          newHistory.push({ type: "output", content: "nvidia-smi: Error: Display width insufficient for table rendering. Please use a desktop device." });
+        } else {
+          newHistory.push({ type: "output", content: getNvidiaSmiOutput() });
+        }
         setHistory(newHistory);
       } else if (cmd === "neofetch") {
         newHistory.push({ type: "output", content: neofetchData });
+        setHistory(newHistory);
+      } else if (cmd === "help") {
+        let helpText = commands.help;
+        if (window.innerWidth < 768) {
+          helpText = helpText.replace(", nvidia-smi", "");
+        }
+        newHistory.push({ type: "output", content: helpText });
         setHistory(newHistory);
       } else if (["expertise", "expertise.sh", "projects", "projects.sh", "resume", "resume.sh", "contact", "contact.sh"].includes(cmd)) {
         const section = cmd.split(".")[0];
