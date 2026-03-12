@@ -36,7 +36,7 @@ export const metadata = {
     siteName: "Aditya Shibu Terminal",
     images: [
       {
-        url: "/assets/terminal-preview.svg", 
+        url: "/assets/terminal-preview.png", 
         width: 1200,
         height: 630,
         alt: "Aditya Shibu Portfolio Terminal Interface",
@@ -50,7 +50,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "[ADITYA_SHIBU] // Terminal Interface",
     description: ">_ Autonomous Systems | AI Research | Robotics. View system logs and technical assets.",
-    images: ["/assets/terminal-preview.svg"],
+    images: ["/assets/terminal-preview.png"],
   },
   
   icons: {
