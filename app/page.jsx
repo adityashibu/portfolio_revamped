@@ -8,10 +8,17 @@ import Social from "@/components/Social";
 const Home = () => {
   const [history, setHistory] = useState([]);
   const [input, setInput] = useState("");
+  const [suggestion, setSuggestion] = useState("");
   const [pendingAction, setPendingAction] = useState(null);
   const scrollRef = useRef(null);
   const inputRef = useRef(null);
   const router = useRouter();
+
+  const allCommands = [
+    "help", "about", "skills", "projects", "expertise", "resume", "contact", 
+    "neofetch", "clear", "ls", "fetch_cv", "expertise.sh", "projects.sh", 
+    "resume.sh", "contact.sh", "fetch_cv.bin"
+  ];
 
   const sectionOverviews = {
     expertise: "Specialized in Autonomous Systems, AI Research, and Robotics. Proficient in CARLA/Gazebo simulation, ROS2 coordination, and deep learning for perception.",
@@ -60,10 +67,39 @@ AWARDS:   1st Place FS-AI UK | FS-AI Real World AI Award
     }
   }, [history]);
 
+  useEffect(() => {
+    if (input.trim() === "" || pendingAction) {
+      setSuggestion("");
+      return;
+    }
+
+    const match = allCommands.find(cmd => cmd.startsWith(input.toLowerCase()));
+    setSuggestion(match ? match.slice(input.length) : "");
+  }, [input, pendingAction]);
+
   const handleCommand = (e) => {
+    if (e.key === "Tab" || e.key === "ArrowRight") {
+      if (suggestion) {
+        e.preventDefault();
+        setInput(input + suggestion);
+        setSuggestion("");
+      }
+    }
+
     if (e.key === "Enter") {
-      const cmd = input.trim().toLowerCase();
-      const newHistory = [...history, { type: "input", content: input }];
+      let cmd = input.trim().toLowerCase();
+      const rawInput = input;
+      setInput("");
+      setSuggestion("");
+
+      // Support 'cd' and './' prefixes
+      if (cmd.startsWith("cd ")) {
+        cmd = cmd.replace("cd ", "").trim();
+      } else if (cmd.startsWith("./")) {
+        cmd = cmd.replace("./", "").trim();
+      }
+
+      const newHistory = [...history, { type: "input", content: rawInput }];
 
       if (pendingAction) {
         if (cmd === "y" || cmd === "yes") {
@@ -75,7 +111,6 @@ AWARDS:   1st Place FS-AI UK | FS-AI Real World AI Award
           setHistory(newHistory);
           setPendingAction(null);
         }
-        setInput("");
         return;
       }
 
@@ -104,8 +139,6 @@ AWARDS:   1st Place FS-AI UK | FS-AI Real World AI Award
       } else {
         setHistory(newHistory);
       }
-
-      setInput("");
     }
   };
 
@@ -147,21 +180,29 @@ AWARDS:   1st Place FS-AI UK | FS-AI Real World AI Award
           </div>
         ))}
 
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-2 items-center relative">
           <span className="text-accent font-bold">
             {pendingAction ? `confirm_${pendingAction.section}? [y/n]:` : "aditya@hw-node-01:~$"}
           </span>
-          <input
-            ref={inputRef}
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={handleCommand}
-            className="bg-transparent border-none outline-none flex-1 text-white"
-            autoFocus
-          />
+          <div className="flex-1 relative flex items-center">
+            <input
+              ref={inputRef}
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={handleCommand}
+              className="bg-transparent border-none outline-none w-full text-white z-10"
+              autoFocus
+            />
+            {suggestion && (
+              <span className="absolute left-0 text-white/20 pointer-events-none z-0">
+                {input}{suggestion}
+              </span>
+            )}
+          </div>
         </div>
       </div>
+
 
       {/* Quick Links Footer */}
       <div className="px-4 md:px-8 py-4 border-t border-accent/10 flex flex-wrap items-center gap-6 bg-[#0a0a0b]/50">
