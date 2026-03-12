@@ -5,11 +5,65 @@ import { useRouter } from "next/navigation";
 import { FiDownload } from "react-icons/fi";
 import Social from "@/components/Social";
 
+const MatrixEffect = () => {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    let width = (canvas.width = window.innerWidth);
+    let height = (canvas.height = window.innerHeight);
+
+    const columns = Math.floor(width / 20);
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$+-*/=%\"'#&_(),.;:?!\\|{}<>[]^~";
+    const charArray = characters.split("");
+    const drops = new Array(columns).fill(1);
+
+    const draw = () => {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+      ctx.fillRect(0, 0, width, height);
+
+      ctx.fillStyle = "#00FF41"; // Classic Matrix Green
+      ctx.font = "15pt monospace";
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = charArray[Math.floor(Math.random() * charArray.length)];
+        ctx.fillText(text, i * 20, drops[i] * 20);
+
+        if (drops[i] * 20 > height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+    };
+
+    const interval = setInterval(draw, 33);
+
+    const handleResize = () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  return <canvas ref={canvasRef} className="fixed inset-0 z-50 pointer-events-none opacity-40" />;
+};
+
 const Home = () => {
   const [history, setHistory] = useState([]);
   const [input, setInput] = useState("");
   const [suggestion, setSuggestion] = useState("");
   const [pendingAction, setPendingAction] = useState(null);
+  const [commandHistory, setCommandHistory] = useState([]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
+  const [isMatrixMode, setIsMatrixMode] = useState(false);
+  const [githubStats, setGithubStats] = useState({ repos: 0, commits: 0, prs: 0 });
+  
   const scrollRef = useRef(null);
   const inputRef = useRef(null);
   const router = useRouter();
@@ -17,7 +71,7 @@ const Home = () => {
   const allCommands = [
     "help", "about", "skills", "projects", "expertise", "resume", "contact", 
     "neofetch", "clear", "ls", "fetch_cv", "expertise.sh", "projects.sh", 
-    "resume.sh", "contact.sh", "fetch_cv.bin"
+    "resume.sh", "contact.sh", "fetch_cv.bin", "matrix", "sudo", "socials", "whoami", "htop", "nvidia-smi"
   ];
 
   const sectionOverviews = {
@@ -28,11 +82,63 @@ const Home = () => {
   };
 
   const commands = {
-    help: "Available commands: [about, skills, projects, expertise, resume, contact, neofetch, clear, ls, fetch_cv]",
+    help: "Available commands: [about, skills, projects, expertise, resume, contact, neofetch, clear, ls, fetch_cv, matrix, sudo, socials, whoami, htop, nvidia-smi]",
     about: "Identity: Aditya Shibu. BSc (Hons) CS w/ AI @ Heriot-Watt (GPA 4.0). Specializing in Autonomous Systems.",
     skills: "Core: PyTorch, ROS2, CUDA, TensorRT, C++, Python, Next.js, TailwindCSS.",
-    ls: "expertise.sh  projects.sh  resume.sh  contact.sh  fetch_cv.bin",
+    ls: "expertise.sh  projects.sh  resume.sh  contact.sh  fetch_cv.bin  socials.sh",
     fetch_cv: "Initiating download... [https://github.com/adityashibu/CV/releases/latest/download/cv.pdf]",
+    sudo: "Error: User is not in the sudoers file. This incident will be reported.",
+    whoami: "aditya@portfolio: Autonomous Systems Developer // AI Researcher // Human",
+    socials: "/home/aditya/socials\n├── github.lnk -> https://github.com/adityashibu\n├── linkedin.lnk -> https://linkedin.com/in/adityashibu\n├── instagram.lnk -> https://instagram.com/adityashibuu/\n└── email.bin -> adityashibuonline@gmail.com",
+  };
+
+  const getNvidiaSmiOutput = () => {
+    const date = new Date().toLocaleString();
+    return `
+${date}
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 999.99                 Driver Version: 999.99         CUDA Version: 15.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                  Driver-Model | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 6090 Ti  WDDM   |   00000000:01:00.0  On |                  N/A |
+|  0%   32C    P0             45W /  650W |   24576MiB /  49152MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A            1337    C+G   ./brain --train --gpu                2048MiB   |
+|    0   N/A  N/A            2048    C+G   ./ros2_humble --launch                256MiB   |
+|    0   N/A  N/A            4096    C+G   ./nextjs_v14 --serve                  128MiB   |
++-----------------------------------------------------------------------------------------+
+`;
+  };
+
+  const getHtopOutput = () => {
+    const createBar = (val, max) => {
+      const percent = Math.min(Math.floor((val / max) * 100), 100);
+      const filled = Math.floor(percent / 5);
+      const empty = 20 - filled;
+      return `[${"|".repeat(filled)}${" ".repeat(empty)}] ${percent}%`;
+    };
+
+    return `
+  1  ${createBar(85, 100)}  Tasks: ${githubStats.repos} repos
+  2  ${createBar(100, 100)}  Load average: 4.0 4.0 4.0
+  Mem${createBar(4.0, 4.0)}  Uptime: 3 years
+  Swp${createBar(githubStats.commits, 1000)}  GitHub Commits: ${githubStats.commits}
+
+  PID USER      PRI  NI  VIRT   RES   SHR S[%CPU] %MEM     TIME+  Command
+ 1337 aditya     20   0  1.2G  4.0G  512M S  85.4  4.0   12:42.40  ./brain --train --gpu
+ 2048 aditya     20   0  512M  2.0G  256M S  45.1  2.0   08:15.20  ./ros2_humble --launch
+ 4096 aditya     20   0  256M  1.0G  128M S  12.8  1.0   04:30.10  ./nextjs_v14 --serve
+    `;
   };
 
   const neofetchData = `
@@ -59,6 +165,37 @@ AWARDS:   1st Place FS-AI UK | FS-AI Real World AI Award
   useEffect(() => {
     setIsMounted(true);
     setHistory([{ type: "output", content: neofetchData }, { type: "output", content: 'Welcome to Aditya\'s Portfolio Terminal. Type "help" to see available commands.' }]);
+    
+    // Fetch GitHub Stats
+    const fetchStats = async () => {
+      try {
+        const userRes = await fetch("https://api.github.com/users/adityashibu");
+        const userData = await userRes.json();
+        
+        const reposRes = await fetch("https://api.github.com/users/adityashibu/repos?per_page=100");
+        const reposData = await reposRes.json();
+        
+        let totalCommits = 0;
+        // Optimization: Only fetch first 5 repos for commits to avoid rate limit issues in demo
+        for (let i = 0; i < Math.min(reposData.length, 5); i++) {
+          const cRes = await fetch(`https://api.github.com/repos/adityashibu/${reposData[i].name}/commits?per_page=1`);
+          const link = cRes.headers.get("Link");
+          if (link) {
+            const match = link.match(/&page=(\d+)>; rel="last"/);
+            if (match) totalCommits += parseInt(match[1]);
+          }
+        }
+
+        setGithubStats({
+          repos: userData.public_repos || 0,
+          commits: totalCommits || 450, // Fallback if calculation fails
+          prs: 12
+        });
+      } catch (e) {
+        console.error("Stats fetch failed", e);
+      }
+    };
+    fetchStats();
   }, []);
 
   useEffect(() => {
@@ -86,11 +223,40 @@ AWARDS:   1st Place FS-AI UK | FS-AI Real World AI Award
       }
     }
 
+    if (e.key === "ArrowUp") {
+      e.preventDefault();
+      if (commandHistory.length > 0) {
+        const nextIndex = historyIndex + 1;
+        if (nextIndex < commandHistory.length) {
+          setHistoryIndex(nextIndex);
+          setInput(commandHistory[commandHistory.length - 1 - nextIndex]);
+        }
+      }
+    }
+
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      if (historyIndex > 0) {
+        const nextIndex = historyIndex - 1;
+        setHistoryIndex(nextIndex);
+        setInput(commandHistory[commandHistory.length - 1 - nextIndex]);
+      } else if (historyIndex === 0) {
+        setHistoryIndex(-1);
+        setInput("");
+      }
+    }
+
     if (e.key === "Enter") {
       let cmd = input.trim().toLowerCase();
       const rawInput = input;
+      
+      if (cmd !== "") {
+        setCommandHistory(prev => [...prev, rawInput]);
+      }
+      
       setInput("");
       setSuggestion("");
+      setHistoryIndex(-1);
 
       // Support 'cd' and './' prefixes
       if (cmd.startsWith("cd ")) {
@@ -116,6 +282,16 @@ AWARDS:   1st Place FS-AI UK | FS-AI Real World AI Award
 
       if (cmd === "clear") {
         setHistory([]);
+      } else if (cmd === "matrix") {
+        setIsMatrixMode(!isMatrixMode);
+        newHistory.push({ type: "output", content: isMatrixMode ? "Exiting Matrix mode..." : "Entering Matrix mode..." });
+        setHistory(newHistory);
+      } else if (cmd === "htop") {
+        newHistory.push({ type: "output", content: getHtopOutput() });
+        setHistory(newHistory);
+      } else if (cmd === "nvidia-smi") {
+        newHistory.push({ type: "output", content: getNvidiaSmiOutput() });
+        setHistory(newHistory);
       } else if (cmd === "neofetch") {
         newHistory.push({ type: "output", content: neofetchData });
         setHistory(newHistory);
@@ -144,12 +320,14 @@ AWARDS:   1st Place FS-AI UK | FS-AI Real World AI Award
 
   return (
     <section 
-      className="h-full font-primary overflow-hidden flex flex-col" 
+      className="h-full font-primary overflow-hidden flex flex-col relative" 
       onClick={() => inputRef.current?.focus()}
     >
+      {isMatrixMode && <MatrixEffect />}
+      
       <div 
         ref={scrollRef}
-        className="flex-1 overflow-y-auto custom-scrollbar px-4 md:px-8 py-2 text-xs md:text-sm lg:text-base whitespace-pre-wrap"
+        className="flex-1 overflow-y-auto custom-scrollbar px-4 md:px-8 py-2 text-xs md:text-sm lg:text-base whitespace-pre-wrap z-10"
       >
         {history.map((entry, i) => (
           <div key={i} className="mb-1">
@@ -164,7 +342,7 @@ AWARDS:   1st Place FS-AI UK | FS-AI Real World AI Award
                   if (line.trim() === "" && lineIdx > 0) {
                     return <div key={lineIdx} className="h-4"></div>;
                   }
-                  if (line.includes(":") && !line.includes("___") && !line.includes("http")) {
+                  if (line.includes(":") && !line.includes("___") && !line.includes("http") && !line.includes("├") && !line.includes("└") && !line.includes("|") && !line.includes("+") && !line.includes("=")) {
                     const [key, ...rest] = line.split(":");
                     return (
                       <div key={lineIdx}>
@@ -205,7 +383,7 @@ AWARDS:   1st Place FS-AI UK | FS-AI Real World AI Award
 
 
       {/* Quick Links Footer */}
-      <div className="px-4 md:px-8 py-4 border-t border-accent/10 flex flex-wrap items-center gap-6 bg-[#0a0a0b]/50">
+      <div className="px-4 md:px-8 py-4 border-t border-accent/10 flex flex-wrap items-center gap-6 bg-[#0a0a0b]/50 z-10">
         <div className="flex gap-2">
            {[...Array(6)].map((_, i) => (
              <div key={i} className={`w-4 h-3 bg-white/${(i+1)*10} border border-white/5`}></div>
