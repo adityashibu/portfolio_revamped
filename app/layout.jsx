@@ -30,16 +30,16 @@ export const metadata = {
   authors: [{ name: "Aditya Shibu" }],
   
   openGraph: {
-    title: "Aditya Shibu - Personal Portfolio",
-    description: "Check out my personal portfolio showcasing my projects and skills.",
+    title: "[ADITYA_SHIBU] // Portfolio v1.0.0",
+    description: ">_ System initialized. Autonomous Systems Developer // AI Researcher. Accessing portfolio data...",
     url: "https://adityashibu.vercel.app/",
-    siteName: "Aditya Shibu",
+    siteName: "Aditya Shibu Terminal",
     images: [
       {
         url: "/assets/photo.png", 
-        width: 800,
-        height: 600,
-        alt: "Aditya Shibu Portfolio",
+        width: 1200,
+        height: 630,
+        alt: "Aditya Shibu Portfolio Terminal Interface",
       },
     ],
     locale: "en_US",
@@ -48,8 +48,8 @@ export const metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Aditya Shibu - Personal Portfolio",
-    description: "Check out my personal portfolio showcasing my projects and skills.",
+    title: "[ADITYA_SHIBU] // Terminal Interface",
+    description: ">_ Autonomous Systems | AI Research | Robotics. View system logs and technical assets.",
     images: ["/assets/photo.png"],
   },
   
