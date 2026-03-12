@@ -180,7 +180,7 @@ AWARDS:   1st Place FS-AI UK | FS-AI Real World AI Award
 
   useEffect(() => {
     setIsMounted(true);
-    setHistory([{ type: "output", content: neofetchData }, { type: "output", content: 'Welcome to Aditya\'s Portfolio Terminal. Type "help" to see available commands.' }]);
+    setHistory([]);
     
     // Fetch GitHub Stats
     const fetchStats = async () => {
@@ -281,7 +281,8 @@ AWARDS:   1st Place FS-AI UK | FS-AI Real World AI Award
         cmd = cmd.replace("./", "").trim();
       }
 
-      const newHistory = [...history, { type: "input", content: rawInput }];
+      // Flush history for every new command
+      let newHistory = [{ type: "input", content: rawInput }];
 
       if (pendingAction) {
         if (cmd === "y" || cmd === "yes") {
@@ -313,8 +314,8 @@ AWARDS:   1st Place FS-AI UK | FS-AI Real World AI Award
         }
         setHistory(newHistory);
       } else if (cmd === "neofetch") {
-        newHistory.push({ type: "output", content: neofetchData });
-        setHistory(newHistory);
+        // Reset command area
+        setHistory([]);
       } else if (cmd === "help") {
         let helpText = commands.help;
         if (window.innerWidth < 768) {
@@ -345,6 +346,45 @@ AWARDS:   1st Place FS-AI UK | FS-AI Real World AI Award
     }
   };
 
+  const renderContent = (content, isBanner = false) => {
+    return content.split("\n").map((line, lineIdx) => {
+      if (line.trim() === "" && lineIdx > 0) {
+        return <div key={lineIdx} className="h-4"></div>;
+      }
+
+      // 1. Detect Stat Lines (e.g., "IDENTITY: Aditya Shibu")
+      // Logic: Starts with uppercase words followed by a colon
+      const statMatch = line.match(/^([A-Z_\\s]+):(.*)$/);
+      
+      if (statMatch && !line.includes("http") && !line.includes("---")) {
+        const [, key, value] = statMatch;
+        return (
+          <div key={lineIdx} className="flex flex-row items-start leading-relaxed">
+            <span className="text-accent font-bold min-w-[110px] shrink-0">{key}:</span>
+            <span className="text-white/80 font-normal">{value.trim()}</span>
+          </div>
+        );
+      }
+
+      // 2. Handle ASCII Banner & Tables
+      const isLargeBanner = isBanner && line.includes("_") && line.length > 50;
+      const isMobileTitle = isBanner && line.includes("ADITYA SHIBU //");
+      
+      return (
+        <div 
+          key={lineIdx} 
+          className={`
+            ${isLargeBanner ? "text-accent font-bold leading-none hidden md:block" : ""}
+            ${isMobileTitle ? "text-accent font-bold block mb-2" : ""}
+            ${!isLargeBanner && !isMobileTitle && !statMatch ? "text-white/80 font-normal" : ""}
+          `}
+        >
+          {line}
+        </div>
+      );
+    });
+  };
+
   return (
     <section 
       className="h-full font-primary overflow-hidden flex flex-col relative" 
@@ -356,35 +396,36 @@ AWARDS:   1st Place FS-AI UK | FS-AI Real World AI Award
         ref={scrollRef}
         className="flex-1 overflow-y-auto custom-scrollbar px-4 md:px-8 py-2 text-xs md:text-sm lg:text-base whitespace-pre-wrap z-10"
       >
-        {history.map((entry, i) => (
-          <div key={i} className="mb-1">
-            {entry.type === "input" ? (
-              <div className="flex gap-2">
-                <span className="text-accent font-bold">aditya@hw-node-01:~$</span>
-                <span>{entry.content}</span>
-              </div>
-            ) : (
-              <div className={entry.content.includes("_") && entry.content.length > 50 && entry.type === "output" && i < 2 ? "text-accent font-bold leading-none hidden md:block" : entry.content.includes("ADITYA SHIBU //") ? "text-accent font-bold block" : "text-white/80"}>
-                {entry.content.split("\n").map((line, lineIdx) => {
-                  if (line.trim() === "" && lineIdx > 0) {
-                    return <div key={lineIdx} className="h-4"></div>;
-                  }
-                  if (line.includes(":") && !line.includes("___") && !line.includes("http") && !line.includes("├") && !line.includes("└") && !line.includes("|") && !line.includes("+") && !line.includes("=")) {
-                    const [key, ...rest] = line.split(":");
-                    return (
-                      <div key={lineIdx}>
-                        <span className="text-accent font-bold">{key}:</span>
-                        <span className="text-white/80 font-normal"> {rest.join(":")}</span>
-                      </div>
-                    );
-                  }
-                  return <div key={lineIdx}>{line}</div>;
-                })}
-              </div>
-            )}
-          </div>
-        ))}
+        {/* Persistent Header: ASCII & Identity */}
+        <div className="mb-6">
+          {renderContent(neofetchData, true)}
+        </div>
 
+        {/* Dynamic Interactive Body */}
+        <div className="mb-4">
+          {history.length === 0 ? (
+            <div className="text-white/80 animate-pulse">
+              Welcome to Aditya's Portfolio Terminal. Type "help" to see available commands.
+            </div>
+          ) : (
+            history.map((entry, i) => (
+              <div key={i} className="mb-2">
+                {entry.type === "input" ? (
+                  <div className="flex gap-2 text-white">
+                    <span className="text-accent font-bold">aditya@hw-node-01:~$</span>
+                    <span>{entry.content}</span>
+                  </div>
+                ) : (
+                  <div className="text-white/80">
+                    {renderContent(entry.content)}
+                  </div>
+                )}
+              </div>
+            ))
+          )}
+        </div>
+
+        {/* Input Prompt */}
         <div className="flex gap-2 items-center relative">
           <span className="text-accent font-bold">
             {pendingAction ? `confirm_${pendingAction.section}? [y/n]:` : "aditya@hw-node-01:~$"}
