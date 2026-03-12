@@ -169,7 +169,7 @@ AWARDS:   1st Place FS-AI UK | FS-AI Real World AI Award
                     return (
                       <div key={lineIdx}>
                         <span className="text-accent font-bold">{key}:</span>
-                        <span className="text-white/80"> {rest.join(":")}</span>
+                        <span className="text-white/80 font-normal"> {rest.join(":")}</span>
                       </div>
                     );
                   }
