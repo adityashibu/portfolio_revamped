@@ -98,6 +98,47 @@ const TrackVisualization = () => {
   );
 };
 
+const allCommands = [
+  "help", "about", "skills", "projects", "expertise", "resume", "contact", 
+  "neofetch", "clear", "ls", "fetch_cv", "expertise.sh", "projects.sh", 
+  "resume.sh", "contact.sh", "fetch_cv.bin", "matrix", "sudo", "socials", "whoami", "htop", "nvidia-smi",
+  "telemetry", "lidar", "track"
+];
+
+const sectionOverviews = {
+  expertise: "Specialized in Autonomous Systems, AI Research, and Robotics. Proficient in CARLA/Gazebo simulation, ROS2 coordination, and deep learning for perception.",
+  projects: "Showcasing SkySim (LLM Drone Control), Hydrakon (Autonomous Racing), LiZIP (Neural LiDAR Compression), and more.",
+  resume: "Academic background: BSc CS w/ AI @ Heriot-Watt (GPA 4.0). Experience: NYU CAIR, AimBeyonD, Atlas Racing FS.",
+  contact: "Available for research collaborations and industrial opportunities. Reach out via Email, LinkedIn, or the system bridge.",
+};
+
+const commands = {
+  help: "Available commands: [about, skills, projects, expertise, resume, contact, neofetch, clear, ls, fetch_cv, matrix, sudo, socials, whoami, htop, nvidia-smi, telemetry, lidar, track]",
+  about: "Identity: Aditya Shibu. BSc (Hons) CS w/ AI @ Heriot-Watt (GPA 4.0). Specializing in Autonomous Systems.",
+  skills: "Core: PyTorch, ROS2, CUDA, TensorRT, C++, Python, Next.js, TailwindCSS.",
+  ls: "expertise.sh  projects.sh  resume.sh  contact.sh  fetch_cv.bin  socials.sh",
+  fetch_cv: "Initiating download... [https://github.com/adityashibu/CV/releases/latest/download/cv.pdf]",
+  sudo: "Error: User is not in the sudoers file. This incident will be reported.",
+  whoami: "aditya@portfolio: Autonomous Systems Developer // AI Researcher // Human",
+  socials: "/home/aditya/socials\n├── github.lnk -> https://github.com/adityashibu\n├── linkedin.lnk -> https://linkedin.com/in/adityashibu\n├── instagram.lnk -> https://instagram.com/adityashibuu/\n└── email.bin -> adityashibuonline@gmail.com",
+  telemetry: "Fetching live telemetry from Atlas-Racing-FS node...\n[LIVE] Velocity: 42.5 km/h\n[LIVE] Steering: 2.4°\n[LIVE] LiDAR: Scanning (1024 pts/sec)\n[LIVE] Perception: Detected 4 objects (cones)\n[LIVE] GPS: 25.09°N, 55.15°E",
+  lidar: `
+  .      .      .      .      .
+    .   .   .   .   .   .   .
+      .  .  .  .  .  .  .
+        . . . . . . .
+          . . . . .
+            [CAR]
+          . . . . .
+        . . . . . . .
+      .  .  .  .  .  .  .
+    .   .   .   .   .   .   .
+  .      .      .      .      .
+  [LiDAR Sweep Complete: Frame 0xAF23]
+  `,
+  track: "Initializing Path Planning Visualization Node...",
+};
+
 const Home = () => {
   const [history, setHistory] = useState([]);
   const [input, setInput] = useState("");
@@ -112,47 +153,6 @@ const Home = () => {
   const scrollRef = useRef(null);
   const inputRef = useRef(null);
   const router = useRouter();
-
-  const allCommands = [
-    "help", "about", "skills", "projects", "expertise", "resume", "contact", 
-    "neofetch", "clear", "ls", "fetch_cv", "expertise.sh", "projects.sh", 
-    "resume.sh", "contact.sh", "fetch_cv.bin", "matrix", "sudo", "socials", "whoami", "htop", "nvidia-smi",
-    "telemetry", "lidar", "track"
-  ];
-
-  const sectionOverviews = {
-    expertise: "Specialized in Autonomous Systems, AI Research, and Robotics. Proficient in CARLA/Gazebo simulation, ROS2 coordination, and deep learning for perception.",
-    projects: "Showcasing SkySim (LLM Drone Control), Hydrakon (Autonomous Racing), LiZIP (Neural LiDAR Compression), and more.",
-    resume: "Academic background: BSc CS w/ AI @ Heriot-Watt (GPA 4.0). Experience: NYU CAIR, AimBeyonD, Atlas Racing FS.",
-    contact: "Available for research collaborations and industrial opportunities. Reach out via Email, LinkedIn, or the system bridge.",
-  };
-
-  const commands = {
-    help: "Available commands: [about, skills, projects, expertise, resume, contact, neofetch, clear, ls, fetch_cv, matrix, sudo, socials, whoami, htop, nvidia-smi, telemetry, lidar, track]",
-    about: "Identity: Aditya Shibu. BSc (Hons) CS w/ AI @ Heriot-Watt (GPA 4.0). Specializing in Autonomous Systems.",
-    skills: "Core: PyTorch, ROS2, CUDA, TensorRT, C++, Python, Next.js, TailwindCSS.",
-    ls: "expertise.sh  projects.sh  resume.sh  contact.sh  fetch_cv.bin  socials.sh",
-    fetch_cv: "Initiating download... [https://github.com/adityashibu/CV/releases/latest/download/cv.pdf]",
-    sudo: "Error: User is not in the sudoers file. This incident will be reported.",
-    whoami: "aditya@portfolio: Autonomous Systems Developer // AI Researcher // Human",
-    socials: "/home/aditya/socials\n├── github.lnk -> https://github.com/adityashibu\n├── linkedin.lnk -> https://linkedin.com/in/adityashibu\n├── instagram.lnk -> https://instagram.com/adityashibuu/\n└── email.bin -> adityashibuonline@gmail.com",
-    telemetry: "Fetching live telemetry from Atlas-Racing-FS node...\n[LIVE] Velocity: 42.5 km/h\n[LIVE] Steering: 2.4°\n[LIVE] LiDAR: Scanning (1024 pts/sec)\n[LIVE] Perception: Detected 4 objects (cones)\n[LIVE] GPS: 25.09°N, 55.15°E",
-    lidar: `
-    .      .      .      .      .
-      .   .   .   .   .   .   .
-        .  .  .  .  .  .  .
-          . . . . . . .
-            . . . . .
-              [CAR]
-            . . . . .
-          . . . . . . .
-        .  .  .  .  .  .  .
-      .   .   .   .   .   .   .
-    .      .      .      .      .
-    [LiDAR Sweep Complete: Frame 0xAF23]
-    `,
-    track: "Initializing Path Planning Visualization Node...",
-  };
 
   const getNvidiaSmiOutput = () => {
     const date = new Date().toLocaleString();
@@ -472,7 +472,7 @@ AWARDS:   1st Place FS-AI UK | FS-AI Real World AI Award
             <TrackVisualization />
           ) : history.length === 0 ? (
             <div className="text-white/80 animate-pulse">
-              Welcome to Aditya's Portfolio Terminal. Type "help" to see available commands.
+              Welcome to Aditya&apos;s Portfolio Terminal. Type &quot;help&quot; to see available commands.
             </div>
           ) : (
             history.map((entry, i) => (
