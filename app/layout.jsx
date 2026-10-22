@@ -21,7 +21,7 @@ export const metadata = {
     template: "%s | Aditya Shibu",
     default: "Aditya Shibu",
   },
-  description: "Portfolio of Aditya Shibu, a Computer Science student specializing in Autonomous Systems, AI, and Robotics. Researching LiDAR compression and drone control.",
+  description: "Portfolio of Aditya Shibu, a Computer Science with AI graduate specializing in Autonomous Systems, AI, and Robotics. Researching LiDAR compression and drone control.",
   keywords: ["Aditya Shibu", "Autonomous Systems", "AI Researcher", "Robotics Engineer", "Heriot-Watt", "LiZIP", "SkySim"],
   authors: [{ name: "Aditya Shibu" }],
   

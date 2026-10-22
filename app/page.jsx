@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { FiDownload } from "react-icons/fi";
 import Social from "@/components/Social";
+import { fetchScholar } from "@/lib/scholar";
 
 const MatrixEffect = () => {
   const canvasRef = useRef(null);
@@ -102,22 +103,22 @@ const allCommands = [
   "help", "about", "skills", "projects", "expertise", "resume", "contact", 
   "neofetch", "clear", "ls", "fetch_cv", "expertise.sh", "projects.sh", 
   "resume.sh", "contact.sh", "fetch_cv.bin", "matrix", "sudo", "socials", "whoami", "htop", "nvidia-smi",
-  "telemetry", "lidar", "track"
+  "telemetry", "lidar", "track", "scholar"
 ];
 
 const sectionOverviews = {
   expertise: "Specialized in Autonomous Systems, AI Research, and Robotics. Proficient in CARLA/Gazebo simulation, ROS2 coordination, and deep learning for perception.",
   projects: "Showcasing SkySim (LLM Drone Control), Hydrakon (Autonomous Racing), LiZIP (Neural LiDAR Compression), and more.",
-  resume: "Academic background: BSc CS w/ AI @ Heriot-Watt (GPA 4.0). Experience: NYU CAIR, AimBeyonD, Atlas Racing FS.",
+  resume: "Academic background: BSc CS w/ AI @ Heriot-Watt (First Class, GPA 4.0). Experience: CanopyAI, LAIRR, AimBeyonD, NYU CAIR, Atlas Racing FS.",
   contact: "Available for research collaborations and industrial opportunities. Reach out via Email, LinkedIn, or the system bridge.",
 };
 
 const commands = {
-  help: "Available commands: [about, skills, projects, expertise, resume, contact, neofetch, clear, ls, fetch_cv, matrix, sudo, socials, whoami, htop, nvidia-smi, telemetry, lidar, track]",
+  help: "Available commands: [about, skills, projects, expertise, resume, contact, neofetch, clear, ls, fetch_cv, matrix, sudo, socials, whoami, htop, nvidia-smi, telemetry, lidar, track, scholar]",
   about: "Identity: Aditya Shibu. BSc (Hons) CS w/ AI @ Heriot-Watt (GPA 4.0). Specializing in Autonomous Systems.",
   skills: "Core: PyTorch, ROS2, CUDA, TensorRT, C++, Python, Next.js, TailwindCSS.",
   ls: "expertise.sh  projects.sh  resume.sh  contact.sh  fetch_cv.bin  socials.sh",
-  fetch_cv: "Initiating download... [https://github.com/adityashibu/CV/releases/latest/download/cv.pdf]",
+  fetch_cv: "Initiating download... [/Aditya_Shibu_CV.pdf]",
   sudo: "Error: User is not in the sudoers file. This incident will be reported.",
   whoami: "aditya@portfolio: Autonomous Systems Developer // AI Researcher // Human",
   socials: "/home/aditya/socials\n├── github.lnk -> https://github.com/adityashibu\n├── linkedin.lnk -> https://linkedin.com/in/adityashibu\n├── instagram.lnk -> https://instagram.com/adityashibuu/\n└── email.bin -> adityashibuonline@gmail.com",
@@ -152,6 +153,8 @@ const Home = () => {
   
   const scrollRef = useRef(null);
   const inputRef = useRef(null);
+  // bumped on every command, so a slow scholar response can't land under a newer command
+  const commandIdRef = useRef(0);
   const router = useRouter();
 
   const getNvidiaSmiOutput = () => {
@@ -214,11 +217,11 @@ ADITYA SHIBU // PORTFOLIO_V1.0.0
 
 \nIDENTITY: Aditya Shibu
 STATUS:   Autonomous Systems Developer
-ACADEMIC: BSc (Hons) Computer Science w/ AI (4.0/4.0)
+ACADEMIC: CS Graduate // BSc (Hons) Computer Science w/ AI (First Class, 4.0/4.0)
 EXPERTISE: Autonomous Systems | Perception | Robotics
-CURRENT:  Research @ HWUD & NYU CAIR | Head of Driverless @ Atlas Racing
+CURRENT:  Forward Deployed AI Engineer @ CanopyAI | Research @ HWUD LAIRR & AimBeyonD
 CORE_LIBS: PyTorch, ROS2, CUDA, TensorRT, C++
-RESEARCH: LiZIP (Neural LiDAR Compression @ NeurIPS Track)
+RESEARCH: LiZIP (Preprint, RA-L) | SkySim (DAUS '26) | CARLA + ROS2 (ICSPIS '25)
 AWARDS:   1st Place FS-AI UK | FS-AI Real World AI Award
   `;
 
@@ -329,6 +332,7 @@ AWARDS:   1st Place FS-AI UK | FS-AI Real World AI Award
 
       // Flush history for every new command
       let newHistory = [{ type: "input", content: rawInput }];
+      const commandId = ++commandIdRef.current;
       setIsTrackMode(false); // Exit track mode on any new command
 
       if (pendingAction) {
@@ -395,10 +399,39 @@ AWARDS:   1st Place FS-AI UK | FS-AI Real World AI Award
         newHistory.push({ type: "output", content: `Do you want to see more? [y/n]` });
         setHistory(newHistory);
         setPendingAction({ section, path });
+      } else if (cmd === "scholar") {
+        newHistory.push({ type: "output", content: "Querying Semantic Scholar for live research metrics..." });
+        setHistory(newHistory);
+
+        fetchScholar()
+          .then(({ stats, papers }) => {
+            const paperLines = [...papers]
+              .sort((a, b) => b.citations - a.citations)
+              .map((paper) => `  [${String(paper.citations).padStart(2, "0")}] ${paper.title}`)
+              .join("\n");
+            return `SCHOLAR // Aditya Shibu
+--------------------------------
+CITATIONS : ${stats.citations}
+H_INDEX   : ${stats.hIndex}
+PAPERS    : ${stats.papers}
+
+CITED_BY  TITLE
+${paperLines}
+
+[LIVE] source: semanticscholar.org`;
+          })
+          .catch((error) => {
+            console.error("Scholar fetch failed", error);
+            return "scholar: Error: Semantic Scholar feed unreachable (possibly rate limited). Try again shortly.";
+          })
+          .then((content) => {
+            if (commandIdRef.current !== commandId) return;
+            setHistory((prev) => [...prev, { type: "output", content }]);
+          });
       } else if (cmd === "fetch_cv" || cmd === "fetch_cv.bin") {
         newHistory.push({ type: "output", content: commands.fetch_cv });
         setHistory(newHistory);
-        window.open("https://github.com/adityashibu/CV/releases/latest/download/cv.pdf", "_blank");
+        window.open("/Aditya_Shibu_CV.pdf", "_blank");
       } else if (commands[cmd]) {
         newHistory.push({ type: "output", content: commands[cmd] });
         setHistory(newHistory);

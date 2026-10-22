@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 import {
   SiTailwindcss,
   SiNextdotjs,
@@ -11,8 +13,11 @@ import {
   SiNvidia,
   SiReact,
   SiUbuntu,
+  SiC,
+  SiRos,
+  SiOpencv,
+  SiDocker,
 } from "react-icons/si";
-import { FaCode } from "react-icons/fa";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
@@ -24,6 +29,7 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 import { motion } from "framer-motion";
+import { fetchScholar } from "@/lib/scholar";
 
 function calculateExperience(startDate) {
   const currentDate = new Date();
@@ -41,7 +47,7 @@ const experienceYears = calculateExperience(startDate);
 const about = {
   title: "About Me",
   description:
-    "I am a Computer Science student at Heriot-Watt University specializing in AI. My work focuses on Autonomous Systems, Robotics, and Deep Learning, with experience spanning across NYU CAIR, Atlas Racing, and several research labs.",
+    "I am a Computer Science with AI graduate from Heriot-Watt University with hands-on research experience across the full robotics stack: perception, planning, control, and edge deployment. I build real-time inference pipelines in C++, CUDA, and TensorRT on NVIDIA Jetson and L40s hardware, with two published conference papers and a journal preprint.",
   info: [
     {
       fieldName: "Name",
@@ -73,19 +79,29 @@ const experience = {
     "Industrial and Research experience in Autonomous Systems and AI.",
   items: [
     {
-      company: "NYU CAIR",
-      position: "Research Collaborator",
-      duration: "Dec 2025 - Present",
+      company: "CanopyAI",
+      position: "Forward Deployed AI Engineer",
+      duration: "Oct 2026 - Present",
     },
     {
-      company: "AimBeyonD",
+      company: "LAIRR - Heriot-Watt",
       position: "Research Intern",
       duration: "Nov 2025 - Present",
     },
     {
+      company: "AimBeyonD - Heriot-Watt",
+      position: "Research Technician",
+      duration: "Nov 2025 - Present",
+    },
+    {
+      company: "NYU CAIR",
+      position: "Research Collaborator",
+      duration: "Dec 2025 - Feb 2026",
+    },
+    {
       company: "Atlas Racing FS",
       position: "Head of Driverless",
-      duration: "May 2025 - Present",
+      duration: "May 2025 - July 2026",
     },
     {
       company: "Creed&Bear",
@@ -114,12 +130,20 @@ const skills = {
       name: "C++",
     },
     {
+      icon: <SiC />,
+      name: "C",
+    },
+    {
       icon: <SiPytorch />,
       name: "PyTorch",
     },
     {
-      icon: <FaCode />,
+      icon: <SiRos />,
       name: "ROS 2",
+    },
+    {
+      icon: <SiOpencv />,
+      name: "OpenCV",
     },
     {
       icon: <SiNvidia />,
@@ -128,6 +152,10 @@ const skills = {
     {
       icon: <SiUbuntu />,
       name: "Ubuntu/Linux",
+    },
+    {
+      icon: <SiDocker />,
+      name: "Docker",
     },
     {
       icon: <SiReact />,
@@ -156,13 +184,39 @@ const education = {
   items: [
     {
       institution: "Heriot-Watt University",
-      degree: "BSc (Hons) CS with AI (GPA 4.0/4.0)",
-      duration: "Sept 2023 - Present",
+      degree: "BSc (Hons) CS with AI (First Class, GPA 4.0/4.0)",
+      duration: "Sept 2023 - July 2026",
     },
     {
       institution: "Indian High School, Dubai",
       degree: "High School",
       duration: "April 2011 - March 2023",
+    },
+  ],
+};
+
+// publications data
+// s2Id is the Semantic Scholar paper id, used to match live citation counts
+const publications = {
+  title: "Research & Publications",
+  items: [
+    {
+      title: "LiZIP: A Deep Learning Model for Compression of LiDAR Point Clouds",
+      venue: "Heriot-Watt University // Target: RA-L",
+      status: "Preprint",
+      s2Id: "731f018567efd5e8dcd6ae83b4205e460520c860",
+    },
+    {
+      title: "SkySim: Natural Language Control of Drone Swarms using LLMs",
+      venue: "International Conference on Drones and Unmanned Systems (DAUS)",
+      status: "Published // Feb 2026",
+      s2Id: "229a6cbbaef6055c16aab81cb47231441807c280",
+    },
+    {
+      title: "Simulating an Autonomous System in CARLA Using ROS2",
+      venue: "Int. Conference on Signal Processing and Information Security (ICSPIS)",
+      status: "Published // Nov 2025",
+      s2Id: "9cc2a14b3fcd143e0ca7279663a0cf64e9df192e",
     },
   ],
 };
@@ -216,6 +270,35 @@ const awards = {
 };
 
 const Resume = () => {
+  // live research metrics from Semantic Scholar
+  const [scholar, setScholar] = useState({ status: "loading", stats: null, papers: {} });
+
+  useEffect(() => {
+    const loadScholar = async () => {
+      try {
+        const data = await fetchScholar();
+
+        const papers = {};
+        data.papers.forEach((paper) => {
+          papers[paper.id] = { citations: paper.citations, url: paper.url };
+        });
+
+        setScholar({ status: "live", stats: data.stats, papers });
+      } catch (error) {
+        console.error("Error fetching Semantic Scholar data:", error);
+        setScholar({ status: "offline", stats: null, papers: {} });
+      }
+    };
+
+    loadScholar();
+  }, []);
+
+  const scholarStats = [
+    { label: "CITATIONS", value: scholar.stats?.citations },
+    { label: "H_INDEX", value: scholar.stats?.hIndex },
+    { label: "PAPERS", value: scholar.stats?.papers },
+  ];
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -235,6 +318,7 @@ const Resume = () => {
             <TabsTrigger value="education" className="text-xs py-2">Education</TabsTrigger>
             <TabsTrigger value="experience" className="text-xs py-2">Experience</TabsTrigger>
             <TabsTrigger value="skills" className="text-xs py-2">Skills</TabsTrigger>
+            <TabsTrigger value="research" className="text-xs py-2">Research</TabsTrigger>
             <TabsTrigger value="awards" className="text-xs py-2">Awards</TabsTrigger>
           </TabsList>
 
@@ -362,6 +446,76 @@ const Resume = () => {
                     ))}
                   </ul>
                 </ScrollArea>
+              </div>
+            </TabsContent>
+
+            {/* Research */}
+            <TabsContent value="research" className="w-full h-full">
+              <div className="flex flex-col gap-4 text-left h-full">
+                <h3 className="text-xl font-bold text-accent uppercase tracking-tighter">{'>'} RESEARCH_LOG</h3>
+
+                {/* Live Metrics */}
+                <div className="border border-accent/20 p-3 bg-[#0d0d0f]">
+                  <div className="flex justify-between items-center mb-2 text-[9px] uppercase tracking-widest">
+                    <span className="text-white/40">SOURCE: Semantic Scholar</span>
+                    <span className={scholar.status === "offline" ? "text-red-500" : "text-accent"}>
+                      {scholar.status === "live" && "● LIVE"}
+                      {scholar.status === "loading" && "FETCHING..."}
+                      {scholar.status === "offline" && "!! FEED OFFLINE"}
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-3 gap-3">
+                    {scholarStats.map((stat) => (
+                      <div key={stat.label} className="flex flex-col border-l border-accent/30 pl-3">
+                        <span className="text-2xl font-bold text-accent terminal-glow">
+                          {stat.value ?? "--"}
+                        </span>
+                        <span className="text-[9px] text-white/50 tracking-widest">{stat.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Papers: compact grid of 3, sized to content so it fits without scrolling */}
+                <ul className="grid grid-cols-1 md:grid-cols-3 gap-3 min-h-0 overflow-y-auto md:overflow-visible">
+                  {publications.items.map((paper, index) => {
+                    const live = scholar.papers[paper.s2Id];
+                    return (
+                      <li
+                        key={index}
+                        className="flex flex-col justify-between gap-3 border border-accent/10 p-4 bg-[#0d0d0f] hover:border-accent/40 transition-all"
+                      >
+                        <div className="flex flex-col gap-3">
+                          <span className="text-accent text-[10px] font-bold uppercase tracking-widest">
+                            {paper.status}
+                          </span>
+                          <h3 className="text-sm font-bold text-white uppercase leading-snug">
+                            {live?.url ? (
+                              <a href={live.url} target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-all">
+                                {paper.title}
+                              </a>
+                            ) : (
+                              paper.title
+                            )}
+                          </h3>
+                          <div className="flex items-start gap-2">
+                            <span className="text-accent text-xs">»</span>
+                            <p className="text-white/60 text-[11px] font-primary leading-snug">
+                              {paper.venue}
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-end justify-between border-t border-accent/10 pt-3">
+                          <span className="text-[9px] text-white/40 uppercase tracking-widest">CITED_BY</span>
+                          <span className="text-3xl font-bold text-accent terminal-glow leading-none">
+                            {live ? live.citations : "--"}
+                          </span>
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ul>
               </div>
             </TabsContent>
 

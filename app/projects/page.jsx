@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/tooltip";
 
 import Link from "next/link";
-import Image from "next/image";
+import AsciiArt from "@/components/AsciiArt";
 
 import { BsArrowUpRight, BsGithub } from "react-icons/bs";
 import WorkSliderBtns from "@/components/WorkSliderBtns";
@@ -26,14 +26,15 @@ const projects = [
     category: "Autonomous Systems / LLMs",
     title: "SkySim",
     description:
-      "ROS 2 Jazzy based simulation environment on Gazebo for Natural Language Control of Drone Swarms using Large Language Models.",
+      "ROS 2 Jazzy based simulation environment on Gazebo for Natural Language Control of Drone Swarms using LLMs, with Artificial Potential Fields collision avoidance. Deployed on 10 Crazyflie 2.1 Brushless drones with OptiTrack. Published at DAUS 2026.",
     tech: [
       { name: "ROS2 Jazzy" },
       { name: "Gazebo" },
       { name: "Python" },
       { name: "LLMs" },
+      { name: "Crazyflie" },
     ],
-    image: "/assets/projects/thumb1.jpeg",
+    scene: "swarm",
     live: "",
     github: "https://github.com/adityashibu",
   },
@@ -41,7 +42,7 @@ const projects = [
     category: "Autonomous Racing",
     title: "Hydrakon V1 and V2",
     description:
-      "Worked with a team of 9 to build an autonomous racing car (Simulation and Hardware Integration) for Formula Student UK.",
+      "Worked with a team of 9 to build an autonomous racing car (Simulation and Hardware Integration) for Formula Student UK. Camera-LiDAR fusion with TensorRT-accelerated YOLO (140ms to 16ms), winning 1st Place Overall Statics and Real World AI.",
     tech: [
       { name: "CARLA" },
       { name: "YOLO" },
@@ -49,7 +50,7 @@ const projects = [
       { name: "Cartographer" },
       { name: "C++" },
     ],
-    image: "/assets/projects/FS-AI-Carla.jpeg",
+    scene: "fsai",
     live: "",
     github: "https://github.com/Atlas-Racing",
   },
@@ -57,16 +58,46 @@ const projects = [
     category: "Deep Learning",
     title: "LiZIP",
     description:
-      "A Deep Learning Model for Compression of LiDAR point clouds. Ongoing research project targeting NeurIPS.",
+      "A Deep Learning Model for Compression of LiDAR point clouds, with the inference pipeline in C++, custom CUDA kernels and TensorRT. Beats LASzip and Draco at <0.017mm error, running 16.7-26.8ms per frame on a Jetson AGX Orin. Preprint targeting RA-L.",
     tech: [
       { name: "PyTorch" },
       { name: "LiDAR" },
       { name: "C++" },
-      { name: "AVX2" },
+      { name: "CUDA" },
+      { name: "TensorRT" },
     ],
-    image: "/assets/projects/spaceDebris.jpeg",
+    scene: "lidar",
     live: "",
     github: "https://github.com/adityashibu",
+  },
+  {
+    category: "Marine Robotics / CV",
+    title: "CogWaters",
+    description:
+      "Perception system for autonomous debris-collecting USVs, a Dubai RDI-funded project with Heriot-Watt Dubai, Edinburgh and the UK National Robotarium. Trained a YOLOv8 model on annotated simulation data and optimised it with TensorRT.",
+    tech: [
+      { name: "YOLOv8" },
+      { name: "TensorRT" },
+      { name: "Python" },
+    ],
+    scene: "cogwaters",
+    live: "",
+    github: "",
+  },
+  {
+    category: "LLMs / GPU",
+    title: "KITE",
+    description:
+      "Kernel Intelligence through Expert Fine-tuning: a Small Language Model fine-tuned on a handmade dataset of Python and CUDA pairs to convert unoptimised Python into optimised CUDA code.",
+    note: "To be released soon",
+    tech: [
+      { name: "Python" },
+      { name: "OpenAI Triton" },
+      { name: "CUDA" },
+    ],
+    scene: "kite",
+    live: "",
+    github: "",
   },
   {
     category: "Fullstack / IoT",
@@ -79,7 +110,7 @@ const projects = [
       { name: "Python" },
       { name: "FastAPI" },
     ],
-    image: "/assets/projects/powerhouse.jpeg",
+    scene: "powerhouse",
     live: "",
     github: "https://github.com/PowerHouse-Project",
   },
@@ -94,7 +125,7 @@ const projects = [
       { name: "ChromaDB" },
       { name: "Python" },
     ],
-    image: "/assets/projects/localRAG.jpeg",
+    scene: "rag",
     live: "https://vaultapp.streamlit.app/",
     github: "https://github.com/jonathanjthomas/GDG-RAG-Demo",
   },
@@ -108,7 +139,7 @@ const projects = [
       { name: "OpenCV" },
       { name: "Python" },
     ],
-    image: "/assets/projects/spaceDebrisRAW.jpg",
+    scene: "spaceDebris",
     live: "",
     github: "https://github.com/adityashibu/spaceDebrisDetection/",
   },
@@ -123,7 +154,8 @@ const projects = [
       { name: "NextJS" },
       { name: "Framer Motion" },
     ],
-    image: "/assets/projects/thumb2.jpeg",
+    scene: "web",
+    sceneOptions: { url: "https://adityashibu.vercel.app", heading: "> whoami: aditya_shibu" },
     live: "https://adityashibu.vercel.app",
     github: "https://github.com/adityashibu/portfolio_revamped",
   },
@@ -192,16 +224,18 @@ const Projects = () => {
                   </Link>
                 )}
 
-                <Link href={project.github} target="_blank">
-                  <Button variant="outline" size="sm" className="border-accent text-accent hover:bg-accent hover:text-primary transition-all text-[10px] font-primary px-2 py-1">
-                    ./GIT_REPO
-                  </Button>
-                </Link>
+                {project.github && (
+                  <Link href={project.github} target="_blank">
+                    <Button variant="outline" size="sm" className="border-accent text-accent hover:bg-accent hover:text-primary transition-all text-[10px] font-primary px-2 py-1">
+                      ./GIT_REPO
+                    </Button>
+                  </Link>
+                )}
               </div>
             </div>
           </div>
 
-          {/* Project Image Slider */}
+          {/* Project Animation Slider */}
           <div className="w-full xl:w-[55%]">
             <Swiper
               spaceBetween={20}
@@ -211,19 +245,14 @@ const Projects = () => {
             >
               {projects.map((project, index) => (
                 <SwiperSlide key={index} className="w-full">
-                  <div className="h-full relative group flex justify-center items-center bg-[#0d0d0f]">
-                    {/* Overlay */}
-                    <div className="absolute top-0 bottom-0 w-full h-full bg-black/40 z-10"></div>
-
-                    {/* Image */}
-                    <div className="relative w-full h-full">
-                      <Image
-                        src={project.image}
-                        fill
-                        className="object-cover border border-accent/10"
-                        alt={project.title}
-                      />
-                    </div>
+                  <div className="h-full relative group flex justify-center items-center bg-[#0d0d0f] border border-accent/10 p-3">
+                    {/* ASCII Animation */}
+                    <AsciiArt
+                      scene={project.scene}
+                      options={project.sceneOptions}
+                      active={index === activeIndex}
+                      label={`${project.title} animation`}
+                    />
                   </div>
                 </SwiperSlide>
               ))}
